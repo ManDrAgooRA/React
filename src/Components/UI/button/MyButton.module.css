@@ -1,0 +1,12 @@
+.MyButton{
+    background: transparent;
+    border: 1px solid teal;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.MyButton:active{
+    transform: scale(.8);
+}

@@ -1,9 +1,10 @@
 import React from 'react'
 
-function UserItem({ user }) {
+function UserItem({ user, show, getId }) {
+
     return (
-        <div className='item'>
-            <div className="item__wrap">
+        <div className='item' onClick={e => getId(e)}>
+            <div className="item__wrap" data-id={user._id}>
                 <div className="item__img">
                     <img src={user.picture} alt={user.picture} />
                 </div>
@@ -14,7 +15,7 @@ function UserItem({ user }) {
                     <p>balance: {user.balance}</p>
                 </div>
             </div>
-        </div>
+        </ div >
     )
 }
 

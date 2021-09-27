@@ -36,24 +36,28 @@ function MyForm({ formName, create }) {
         <form className='myForm'>
             <h2>{formName}</h2>
             <MyInput
+                required
                 value={formValue.name}
                 onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
                 type='text'
                 placeholder='Enter name'
             />
             <MyInput
+                required
                 value={formValue.age}
                 onChange={(e) => setFormValue({ ...formValue, age: e.target.value })}
                 type='number'
                 placeholder='Enter age'
             />
             <MyInput
+                required
                 value={formValue.balance}
                 onChange={(e) => setFormValue({ ...formValue, balance: e.target.value })}
                 type='number'
                 placeholder='Enter balance'
             />
             <MyInput
+                required
                 value={formValue.picture}
                 onChange={(e) => setFormValue({ ...formValue, picture: e.target.value })}
                 type='text'

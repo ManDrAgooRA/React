@@ -1,7 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .container {
     max-width: 1140px;
     margin: 0 auto;
 }
+
+.header{
+    display: flex;
+    padding: 15px;
+    background-color: antiquewhite;
+}
+
 .items{
     display: flex;
     flex-wrap: wrap;
@@ -11,9 +24,10 @@
     display: flex;
     border: 2px solid #bebebecb;
     border-radius: 10px;
+    width: calc(25% - 30px);
     margin: 15px;
     padding: 15px;
-    width: calc((100% / 5) - 15px);
+    cursor: pointer;
 }
 
 .item__wrap{

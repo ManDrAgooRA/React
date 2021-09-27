@@ -13,34 +13,38 @@ function MyForm({ formName, create }) {
         picture: '',
     })
 
-    function addNewUser(e) {
+    const addNewUser = (e) => {
         e.preventDefault();
 
-        const newUser = {
-            ...formValue,
-            balance: `$${formValue.balance}`,
-            id: Date.now()
-        }
+        if (formValue.name && formValue.age && formValue.balance && formValue.picture) {
+            const newUser = {
+                ...formValue,
+                balance: `$${formValue.balance}`,
+                id: Date.now()
+            }
 
-        create(newUser)
-        setFormValue({
-            name: '',
-            age: '',
-            gender: 'male',
-            balance: '',
-            picture: '',
-        })
+            create(newUser)
+            setFormValue({
+                name: '',
+                age: '',
+                gender: 'male',
+                balance: '',
+                picture: '',
+            })
+        } else {
+            alert('Заполни форму полностью');
+        }
     }
 
     return (
         <form className='myForm'>
             <h2>{formName}</h2>
             <MyInput
-                required
                 value={formValue.name}
                 onChange={(e) => setFormValue({ ...formValue, name: e.target.value })}
                 type='text'
                 placeholder='Enter name'
+                required
             />
             <MyInput
                 required

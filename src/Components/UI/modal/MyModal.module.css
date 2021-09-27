@@ -11,9 +11,12 @@
 }
 
 .myModalContent{
+    display: flex;
+    flex-direction: column;
     padding: 25px;
     background-color: #fff;
     cursor: default;
+    border-radius: 14px;
 }
 
 .myModal.active{

@@ -12,7 +12,11 @@ function MyModal({ children, visible, setVisible }) {
     return (
         <div className={modalClass.join(' ')} onClick={() => setVisible(false)}>
             <div className={cl.myModalContent} onClick={(e) => e.stopPropagation()}>
-                {children}
+                <img src={children.picture} alt={children.picture} />
+                <p>name: {children.name}</p>
+                <p>age: {children.age}</p>
+                <p>gender: {children.gender}</p>
+                <p>balance: {children.balance}</p>
             </div>
         </div >
 

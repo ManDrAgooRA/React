@@ -1,10 +1,10 @@
 import React from 'react'
 
-function UserItem({ user, show, getId }) {
+function UserItem({ user, getUser }) {
 
     return (
-        <div className='item' onClick={e => getId(e)}>
-            <div className="item__wrap" data-id={user._id}>
+        <div className='item' onClick={() => getUser(user)}>
+            <div className="item__wrap">
                 <div className="item__img">
                     <img src={user.picture} alt={user.picture} />
                 </div>

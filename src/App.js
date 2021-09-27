@@ -14,6 +14,7 @@ function App() {
   const [selectedSort, setSelectedSort] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
   const [modal, setModal] = useState(false);
+  const [modalUser, setModalUser] = useState('')
 
   const createUser = (newUser) => {
     setUsers([...users, newUser])
@@ -32,6 +33,7 @@ function App() {
     }
   }
 
+
   const filteredItems = useMemo(() => {
     return (users.filter(user => user.name.toLowerCase().includes(searchQuery.toLowerCase())))
   }, [searchQuery, users])
@@ -41,12 +43,13 @@ function App() {
   const reset = () => {
     setSelectedSort('')
     setSearchQuery('')
+    setUsers([...userData])
   }
 
   return (
     <div className="App">
       <MyModal visible={modal} setVisible={setModal} >
-        {'aaa'}
+        {modalUser}
       </MyModal>
       <div className="header">
         <div className="container">
@@ -72,7 +75,7 @@ function App() {
       </div>
       <div className="container">
         <Form formName={'Добавить пользователя'} create={createUser} />
-        <UserList user={usersFiltered} setVisible={setModal} />
+        <UserList user={usersFiltered} setVisible={setModal} modalUser={setModalUser} />
       </div>
     </div >
   );

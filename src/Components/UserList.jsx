@@ -2,15 +2,11 @@ import React from 'react'
 import UserItem from './UserItem';
 import '../App.css';
 
-function UserList({ user, setVisible }) {
+function UserList({ user, setVisible, modalUser }) {
 
-
-    const show = () => {
+    const getUser = (user) => {
         setVisible(true)
-    }
-
-    const a = (a) => {
-        console.log(a.target)
+        modalUser(user)
     }
 
     const title = () => {
@@ -28,7 +24,7 @@ function UserList({ user, setVisible }) {
             </h1>
             <div className='items'>
                 {user.map((user) => {
-                    return <UserItem user={user} key={user.name + Date.now()} show={show} getId={a} />
+                    return <UserItem user={user} key={user.name + Date.now()} getUser={getUser} />
                 })}
             </div>
         </>

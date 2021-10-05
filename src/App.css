@@ -9,6 +9,8 @@
     margin: 0 auto;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .time__block{
@@ -18,4 +20,15 @@
     font-size: 26px;
     line-height: 26px;
     font-weight: 600;
+}
+
+.history{
+    font-size: 26px;
+    line-height: 26px;
+    font-weight: 600;
+}
+
+.history div{
+    padding: 5px 0;
+    border-bottom: 2px solid rgba(97, 99, 99, 0.185);
 }

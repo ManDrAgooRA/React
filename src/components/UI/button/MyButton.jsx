@@ -1,9 +1,10 @@
 import React from 'react'
-import cl from './MyButton.module.css'
+import Button from '@material-ui/core/Button';
+
 
 function MyButton({ children, ...props }) {
     return (
-        <button className={cl.myButton} {...props}>{children}</button>
+        <Button {...props}>{children}</Button>
     )
 }
 

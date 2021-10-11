@@ -1,8 +1,12 @@
-import React, { forwardRef } from 'react'
-import { TextField } from '@mui/material'
+import React, { forwardRef, useContext } from 'react';
+import { Context } from '../../../context';
+import { TextField } from '@mui/material';
 
 const MyInput = forwardRef((props, ref) => {
+    const { state } = useContext(Context);
+
     return <TextField
+        className={state.darkTheme ? 'input active' : 'input'}
         inputRef={ref}
         variant='outlined'
         margin='normal'
@@ -10,7 +14,5 @@ const MyInput = forwardRef((props, ref) => {
         {...props}
     />
 })
-
-
 
 export default MyInput

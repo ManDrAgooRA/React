@@ -1,41 +1,49 @@
 import React, { useContext } from 'react';
-// import { useForm } from "react-hook-form";
 import { Context } from '../context';
-import MyButton from './UI/MyButton/MyButton';
 import Step1 from './Step1';
-import Step2 from './Step2'
+import Step2 from './Step2';
+import Step3 from './Step3';
+import Step4 from './Step4';
+import FinalStep from './FinalStep';
 import { Container } from '@material-ui/core';
+import MyButton from './UI/MyButton/MyButton';
 
 function Component() {
-    const { dispatch, state } = useContext(Context);
+    const { state, dispatch } = useContext(Context);
 
-    const inc = () => {
-        dispatch({ type: 'increament' })
-        console.log(state)
+    const themeToggler = () => {
+        if (state.darkTheme) {
+            dispatch({
+                type: 'changeTheme',
+                payload: false
+            })
+        } else {
+            dispatch({
+                type: 'changeTheme',
+                payload: true
+            })
+        }
     }
 
     return (
+        <div className={state.darkTheme ? 'wrapper active' : 'wrapper'}>
 
-        <Container sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            flexDirection: 'column'
-        }}>
-            <p>Шаг:{state.step}</p>
-            {state.step >= 1 && state.step < 2 ? <Step1 ></Step1> : <Step2 ></Step2>}
+            <Container sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexDirection: 'column',
+                height: '100vh'
+            }}>
 
+                {state.step === 1 ? <Step1></Step1> : ''}
+                {state.step === 2 ? <Step2></Step2> : ''}
+                {state.step === 3 ? <Step3></Step3> : ''}
+                {state.step === 4 ? <Step4></Step4> : ''}
+                {state.step === 5 ? <FinalStep></FinalStep> : ''}
 
-            {/* {state.step < 2 ?
-                <MyButton variant="contained" color="primary" onClick={inc}>Next</MyButton>
-                :
-                <>
-                    <MyButton variant="contained" color="primary" onClick={inc}>2</MyButton>
-                    <MyButton variant="contained" color="primary" onClick={() => { dispatch({ type: 'dec' }) }}>1</MyButton>
-                </>
-
-            } */}
-
-        </Container>
+                <MyButton onClick={themeToggler} sx={{ position: 'fixed', top: '50px', left: '50px', width: '200px' }} >Change theme</MyButton>
+            </Container>
+        </div>
     )
 }
 

@@ -6,71 +6,102 @@ import MyInput from './UI/MyInput/MyInput';
 import MyButton from './UI/MyButton/MyButton'
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import FormContainer from './FormContainer';
+import BtnContainer from './BtnContainer';
 
 function Step2({ children, ...props }) {
+    const { dispatch, state } = useContext(Context);
+
     const schema = yup.object().shape({
         city: yup
             .string()
-            .matches(/^([^0-9]*)$/, 'only letters')
-            .required('error'),
+            .required(),
         street: yup
             .string()
             .required(),
-        // home: yup
-        //     .required()
+        home: yup
+            .string()
+            .required()
     })
 
     const { register, formState: { errors }, handleSubmit } = useForm({
         mode: 'onBlur',
-        resolver: yupResolver(schema)
+        resolver: yupResolver(schema),
+        defaultValues: {
+            city: state.city,
+            street: state.street,
+            home: state.home,
+        }
     })
 
     const onSubmit = (data) => {
-        console.log(data);
+
         dispatch({
-            type: 'setName',
-            payload: data.name
+            type: 'setCity',
+            payload: data.city
         })
+
         dispatch({
-            type: 'setLastName',
-            payload: data.lastName
+            type: 'setStreet',
+            payload: data.street
+        })
+
+        dispatch({
+            type: 'setHome',
+            payload: data.home
+        })
+
+        dispatch({
+            type: 'increment',
         })
     };
 
-    const { dispatch } = useContext(Context);
-
     return (
-        <Form onSubmit={handleSubmit(onSubmit)}>
-            <MyInput
-                {...register("city")}
-                id='city'
-                type='text'
-                label='Город'
-                name='city'
-            />
-            <MyInput
-                {...register("street")}
-                id='street'
-                type='text'
-                label='Улица'
-                name='street'
-            />
-            <MyInput
-                {...register("home")}
-                id='home'
-                type='text'
-                label='Дом'
-                name='home'
-            />
-            <MyButton >Next</MyButton>
-            <MyButton onClick={() => {
-                dispatch({
-                    type: 'decreament'
-                })
-            }}>Prev</MyButton>
+        <FormContainer>
+            <Form onSubmit={handleSubmit(onSubmit)}>
+                <MyInput
+                    {...register("city")}
+                    id='city'
+                    type='text'
+                    label='Город'
+                    name='city'
+                    error={!!errors.city}
+                    helperText={errors?.city?.message}
+                />
+                <MyInput
+                    {...register("street")}
+                    id='street'
+                    type='text'
+                    label='Улица'
+                    name='street'
+                    error={!!errors.street}
+                    helperText={errors?.street?.message}
+                />
+                <MyInput
+                    {...register("home")}
+                    id='home'
+                    type='text'
+                    label='Дом'
+                    name='home'
+                    error={!!errors.home}
+                    helperText={errors?.home?.message}
+                />
 
-        </Form>
+                <BtnContainer>
 
+                    <MyButton onClick={() => {
+                        dispatch({
+                            type: 'decrement'
+                        })
+                    }}>Prev</MyButton>
+
+                    <MyButton >Next</MyButton>
+                </BtnContainer>
+
+
+            </Form>
+
+        </FormContainer>
     )
 }
 

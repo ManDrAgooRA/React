@@ -1,0 +1,30 @@
+body{
+    min-height: 100vh;
+}
+
+p{
+    margin: 5px;
+    padding: 0;
+}
+
+.wrapper{
+    display: flex;
+   height: 100%;
+}
+
+.wrapper.active{
+    background: rgb(0, 30, 60);
+    color: #fff;
+}
+
+.input.active{
+    background: rgb(255, 255, 255);
+}
+
+form{
+    padding: 15px;
+}
+
+.box__container.active{
+    background: rgb(19, 47, 76);
+}

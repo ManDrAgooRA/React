@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { Context } from '../context';
 
 function Form({ children, ...props }) {
+    const { state } = useContext(Context);
+
     return (
-        <form {...props}>
+        <form className={state.darkTheme ? 'active' : ''} {...props}>
             {children}
         </form>
     )

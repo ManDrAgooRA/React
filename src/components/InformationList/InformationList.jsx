@@ -17,9 +17,9 @@ export default function InformationList() {
     }
 
     const newGame = () => {
-        // let arr = new Array(Math.pow(gameParams.size, 2)).fill(null);
+        let arr = new Array(Math.pow(gameParams.size, 2)).fill(null);
 
-        // distpatch(newGame('erwwer'))
+        // distpatch(newGame(arr))
         //  Не работает
 
         distpatch({

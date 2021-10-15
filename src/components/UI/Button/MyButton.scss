@@ -1,0 +1,21 @@
+@import '../../../assets/styles/variables.scss';
+
+.button{
+    background: $white;
+    border: 2px solid $btn-color;
+    border-radius: 14px;
+    padding: $btn-padding;
+    margin-bottom: 5px;
+    color: darken($btn-color,5);
+    transition: $transition;
+    font-weight: bold;
+
+    &:hover{
+        cursor: pointer;
+        background: $btn-hover-background;
+    }
+
+    &:active{
+        transform: scale(0.8);
+    }
+}

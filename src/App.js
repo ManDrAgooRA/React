@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import './App.css';
+import Game from './components/Game/Game';
+import './App.scss';
+import { gameReducer, initialState } from './reducer';
+import { GameProvider } from './context';
 
 function App() {
-  
   return (
-    <>
-   
-    </>
-  )
+    <GameProvider reducer={gameReducer} initialState={initialState}>
+      <Game />
+    </GameProvider>
+  );
 }
 
 export default App;

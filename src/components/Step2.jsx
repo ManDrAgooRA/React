@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { useForm } from "react-hook-form";
-import { Context } from '../context';
+import { Context } from '../context/context';
 import Form from './Form'
+import { updateData } from '../actions/actions';
 import MyInput from './UI/MyInput/MyInput';
 import MyButton from './UI/MyButton/MyButton'
 import * as yup from "yup";
@@ -35,21 +36,7 @@ function Step2({ children, ...props }) {
     })
 
     const onSubmit = (data) => {
-
-        dispatch({
-            type: 'setCity',
-            payload: data.city
-        })
-
-        dispatch({
-            type: 'setStreet',
-            payload: data.street
-        })
-
-        dispatch({
-            type: 'setHome',
-            payload: data.home
-        })
+        dispatch(updateData(data))
 
         dispatch({
             type: 'increment',

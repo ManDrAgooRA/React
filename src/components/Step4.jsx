@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { useForm } from "react-hook-form";
-import { Context } from '../context';
+import { Context } from '../context/context';
+
 import Form from './Form'
 import MyInput from './UI/MyInput/MyInput';
 import MyButton from './UI/MyButton/MyButton';

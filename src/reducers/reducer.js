@@ -1,36 +1,26 @@
-export default function reducer(state, action) {
+import { UPDATE_DATA } from "../actions/actions";
+
+export const dataForm = {
+    'name': '',
+    'lastName': '',
+    'email': '',
+    'city': '',
+    'street': '',
+    'home': '',
+    'image': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJlbOV4YoZ5QCml5IIUXhj10cOdEJR2E-_Wg&usqp=CAU',
+    'password': '',
+    'secondPassword': '',
+    step: 1,
+    isDisabledPhoto: true,
+    darkTheme: false,
+}
+
+export default function reducer(state = dataForm, action) {
     switch (action.type) {
-
-        case 'setName':
+        case UPDATE_DATA:
             return {
                 ...state,
-                name: action.payload,
-            };
-        case 'setLastName':
-            return {
-                ...state,
-                lastName: action.payload
-            };
-        case 'setEmail':
-            return {
-                ...state,
-                email: action.payload
-            }
-        case 'setCity':
-            return {
-                ...state,
-                city: action.payload
-            }
-
-        case 'setStreet':
-            return {
-                ...state,
-                street: action.payload
-            }
-        case 'setHome':
-            return {
-                ...state,
-                home: action.payload
+                ...action.payload
             }
 
         case 'increment':
@@ -43,12 +33,6 @@ export default function reducer(state, action) {
             return {
                 ...state,
                 step: state.step - 1
-            }
-
-        case 'setImage':
-            return {
-                ...state,
-                image: action.payload
             }
 
         case 'setDisabledPhoto':

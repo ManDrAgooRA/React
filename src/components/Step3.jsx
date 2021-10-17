@@ -1,8 +1,9 @@
 import React, { useState, useRef, useContext, useEffect } from 'react'
 import { useForm } from "react-hook-form";
-import { Context } from '../context';
+import { Context } from '../context/context';
 import Form from './Form';
 import { Box } from '@material-ui/system';
+import { updateData } from '../actions/actions';
 import MyInput from './UI/MyInput/MyInput';
 import MyButton from './UI/MyButton/MyButton';
 import FormContainer from './FormContainer';
@@ -33,11 +34,7 @@ function Step3({ children, ...props }) {
         if (image) {
             const reader = new FileReader();
             reader.onloadend = () => {
-                dispatch({
-                    type: 'setImage',
-                    payload: reader.result,
-                })
-
+                dispatch(updateData(reader.result))
             };
             reader.readAsDataURL(image);
         } else {
@@ -47,11 +44,7 @@ function Step3({ children, ...props }) {
     const imageHandler = (e) => {
         const file = e.target.files[0];
         if (file && file.type.substr(0, 5) === "image") {
-
-            dispatch({
-                type: 'setImage',
-                payload: file
-            })
+            dispatch(updateData(file))
 
             dispatch({
                 type: 'setDisabledPhoto',

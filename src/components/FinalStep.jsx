@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Context } from '../context';
+import { Context } from '../context/context';
 import { Container } from '@material-ui/core';
 import { Box } from '@material-ui/system';
 

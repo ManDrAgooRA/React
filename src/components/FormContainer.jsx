@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Box } from '@mui/system';
-import { Context } from '../context';
-
+import { Context } from '../context/context';
 
 function FormContainer({ children, ...props }) {
     const { state } = useContext(Context);

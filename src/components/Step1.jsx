@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
+import { Context } from '../context/context';
 import { useForm } from "react-hook-form";
-import { Context } from '../context';
+import { updateData } from '../actions/actions';
 import Form from './Form';
 import MyInput from './UI/MyInput/MyInput';
 import MyButton from './UI/MyButton/MyButton'
-import * as yup from "yup";
+import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormContainer from './FormContainer';
 import BtnContainer from './BtnContainer';
@@ -37,21 +38,7 @@ function Step1({ children, ...props }) {
     })
 
     const onSubmit = (data) => {
-
-        dispatch({
-            type: 'setName',
-            payload: data.name
-        })
-
-        dispatch({
-            type: 'setLastName',
-            payload: data.lastName
-        })
-
-        dispatch({
-            type: 'setEmail',
-            payload: data.email
-        })
+        dispatch(updateData(data))
 
         dispatch({
             type: 'increment',

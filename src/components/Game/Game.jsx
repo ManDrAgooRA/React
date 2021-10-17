@@ -2,40 +2,60 @@ import React from 'react';
 import './Game.scss';
 import Board from '../Board/Board';
 import { useGameStore } from '../../context';
-import { getSignTurn, calculateWinner } from '../../utils';
+import { getSignTurn, calculateWinner, getWinner, getNewGame } from '../../utils';
 import showWinner from '../../utils/showWinner';
-import { addToHistory, showNextPlayer, setWinner } from '../../actions';
+import { addToHistory, showNextPlayer, setWinner, changeDisabledGameButton } from '../../actions';
 import { initialState } from '../../reducer';
 import InformationList from '../InformationList/InformationList'
 
 export default function Game() {
-    const [{ history }, dispatch] = useGameStore();
+    const [{ history, firstPlayer, secondPlayer }, dispatch] = useGameStore();
     const currentStep = history[history.length - 1];
 
     const handleClick = (i) => {
         const squares = [...currentStep.squares];
         squares[i] = getSignTurn(history.length);
+        // squares[i] = getSignTurn(step);
 
         const winner = calculateWinner(squares);
 
-        // console.log(getSignTurn(history.length));
-        // //show  symbol
-        if (winner) {
-            dispatch(setWinner(winner))
-        }
+        // if (squares[i] === 'x') {
+        //     console.log('o')
+        //     dispatch(showNextPlayer({ name: 'vasay', value: 'o' }))
+        // } else {
+        //     // dispatch(showNextPlayer(firstPlayer))
 
-        if (getSignTurn(history.length) === initialState.firstPlayer.value) {
+        //     dispatch(showNextPlayer({ name: 'petay', value: 'x' }))
 
-            showWinner(dispatch, showNextPlayer, initialState.secondPlayer)
+        //     console.log('x')
+        // }
+
+        if (squares[i] === firstPlayer.value) {
+            dispatch(showNextPlayer(secondPlayer))
 
         } else {
-            showWinner(dispatch, showNextPlayer, initialState.firstPlayer)
-
+            dispatch(showNextPlayer(firstPlayer))
         }
 
+        // console.log(getSignTurn(history.length));
+        // //show  symbol
+        getWinner(dispatch, setWinner, winner)
+        // console.log(squares[i])
+
+        // if (getSignTurn(history.length) === firstPlayer.value) {
+
+        //     showWinner(dispatch, showNextPlayer, secondPlayer)
+
+        // } else {
+        //     showWinner(dispatch, showNextPlayer, firstPlayer)
+
+        // }
+
         dispatch(addToHistory(squares));
-        console.log(currentStep)
-        // squares = [null, null, null, null, null, null, null, null, null]
+
+        if (getNewGame(squares)) {
+            dispatch(changeDisabledGameButton(false))
+        }
     };
 
     return (

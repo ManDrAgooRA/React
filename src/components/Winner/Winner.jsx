@@ -8,7 +8,7 @@ export default function Winner() {
 
     return (
         <div>
-            <p>{winner ? `Победитель : ${winner}` : `Победитель : in progress...`}</p>
+            <p><strong>Winner : </strong> {winner ? `${winner}` : `who knows... who knows...`}</p>
         </div>
     )
 }

@@ -1,14 +1,14 @@
 import { gameParams } from '../constants/gameParams';
-// import { ADD_TO_HISTORY, SHOW_NEXT_PLAYER, SET_WINNER, NEW_GAME, IS_DISABLED_NEW_GAME_BUTTON, SET_FIRST_PLAYER } from '../actions';
-import { ADD_TO_HISTORY, SHOW_NEXT_PLAYER, SET_WINNER, NEW_GAME, IS_DISABLED_CHANGE_PLAYER_BUTTON, ADD_TO_WINNERS_HISTORY } from '../actions';
+import { ADD_TO_HISTORY, CHANGE_HISTORY, SHOW_NEXT_PLAYER, SET_WINNER, NEW_GAME, IS_DISABLED_CHANGE_PLAYER_BUTTON, ADD_TO_WINNERS_HISTORY, SET_FIRST_PLAYER_NAME, SET_SECOND_PLAYER_NAME, CHANGE_STEP, CHANGE_GIVE_UP, SET_FIRST_PLAYER } from '../actions';
 
 export const initialState = {
     isXTurn: true,
-    firstPlayer: { id: 1, name: 'playervas', value: 'x' },
+    firstPlayer: { id: 1, name: 'player1', value: 'x' },
     secondPlayer: { id: 2, name: 'player2', value: 'o' },
     nextPlayer: {},
     winner: '',
-    isDisabledChangePlayerButton: false,
+    isDisabledButton: false,
+    isDisabledGiveUp: true,
     step: 0,
     history: [
         {
@@ -25,6 +25,14 @@ export const gameReducer = (state = initialState, action) => {
                 ...state,
                 history: [...state.history, action.payload],
             };
+
+        case CHANGE_HISTORY:
+            return {
+                ...state,
+                history: [
+                    action.payload,
+                ],
+            }
 
         case SHOW_NEXT_PLAYER:
             return {
@@ -53,32 +61,43 @@ export const gameReducer = (state = initialState, action) => {
         case IS_DISABLED_CHANGE_PLAYER_BUTTON:
             return {
                 ...state,
-                isDisabledChangePlayerButton: action.payload,
+                isDisabledButton: action.payload,
             }
 
-        case 'fisrtPlayers':
+        case CHANGE_GIVE_UP:
+            return {
+                ...state,
+                isDisabledGiveUp: action.payload,
+            }
+
+        case SET_FIRST_PLAYER:
             return {
                 ...state,
                 firstPlayer: action.payload
             }
 
-        case 'secondPlayers':
-            return {
-                ...state,
-                secondPlayer: action.payload
-            }
-
-        case 'changeStep':
+        case CHANGE_STEP:
             return {
                 ...state,
                 step: action.payload
             }
 
         case ADD_TO_WINNERS_HISTORY:
-            console.log(action.payload)
             return {
                 ...state,
                 winnersHistory: [...state.winnersHistory, action.payload],
+            }
+
+        case SET_FIRST_PLAYER_NAME:
+            return {
+                ...state,
+                firstPlayer: { ...state.firstPlayer, name: action.payload }
+            }
+
+        case SET_SECOND_PLAYER_NAME:
+            return {
+                ...state,
+                secondPlayer: { ...state.secondPlayer, name: action.payload }
             }
 
         default:

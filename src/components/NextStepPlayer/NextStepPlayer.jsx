@@ -7,7 +7,7 @@ export default function NextStepPlayer() {
     return (
 
         <div>
-            {Object.keys(nextPlayer).length !== 0 ? `Следующий игрок : ${nextPlayer.name} : ${nextPlayer.value}` : `Следующий игрок : ${firstPlayer.name} : ${firstPlayer.value}`}
+            <p><strong>Next Player : </strong>{Object.keys(nextPlayer).length !== 0 ? `${nextPlayer.name} : ${nextPlayer.value}` : `${firstPlayer.name} : ${firstPlayer.value}`}</p>
         </div>
     )
 }

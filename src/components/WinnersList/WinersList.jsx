@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useGameStore } from '../../context';
 import { v4 as uuidv4 } from 'uuid';
-import { addToWinnersHistory } from '../../actions';
 
 export default function WinersList() {
-    const [{ winnersHistory }, dispatch] = useGameStore();
+    const [{ winnersHistory }] = useGameStore();
 
     return (
         <div>
-            <p>Winners List:</p>
-            {winnersHistory.map(({ winnersList }, i) => {
-                return <p key={uuidv4()}>{winnersList.name}:{winnersList.value} - {winnersList.winTime}</p>
+            <p><strong> Winners List : </strong></p>
+            {winnersHistory.map((item, i) => {
+                return <p key={uuidv4()}>{item.name}:{item.value} - {item.winTime}</p>
             })}
         </div>
     )

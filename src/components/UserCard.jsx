@@ -12,6 +12,7 @@ export default function UserCard({ user }) {
         dispatch(deleteUser(filtredUsers.filter((filtredUser) => {
             return filtredUser.id !== user.id
         })))
+        dispatch(showWinner({}))
     }
 
     return (

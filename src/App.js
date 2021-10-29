@@ -3,12 +3,15 @@ import { Provider } from 'react-redux'
 import './App.css';
 import Main from './containers/Main';
 import { store } from './store';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
 
   return (
     <Provider store={store}>
-      <Main />
+      <BrowserRouter>
+        <Main />
+      </BrowserRouter>
     </Provider>
   )
 }

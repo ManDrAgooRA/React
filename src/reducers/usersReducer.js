@@ -13,8 +13,10 @@ export const initialState = {
         stop: true,
         reset: true,
     },
-    id: '1',
-    winner: {}
+    id: '111111',
+    winner: {},
+    contests: {},
+    selectedUser: {}
 };
 
 
@@ -105,6 +107,15 @@ export function usersReducer(state = initialState, action) {
                 ...state,
                 winner: winnerObj
             }
+
+        case usersActions.SELECTED_USER:
+            console.log(action.payload)
+        // return {
+        //     ...state,
+
+        // }
+
+
         default:
             return state;
     }

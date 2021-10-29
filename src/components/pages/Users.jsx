@@ -1,5 +1,5 @@
 import React from 'react'
-import UserCard from './UserCard'
+import UserCard from '../UserCard'
 import { v4 as uuidv4 } from 'uuid';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux'
@@ -10,13 +10,12 @@ export default function Users() {
     return (
         <Grid container spacing={2}>
             {filtredUsers.map((user) => {
-                if (filtredUsers.length) {
-                    return (
-                        <Grid item xs={4} key={uuidv4()}>
-                            <UserCard user={user} />
-                        </Grid>
-                    )
-                }
+                // if (filtredUsers.length) {
+                return (
+                    <Grid item xs={4} key={uuidv4()}>
+                        <UserCard user={user} />
+                    </Grid>)
+                // }
             })}
         </Grid >
     )

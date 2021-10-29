@@ -9,6 +9,7 @@ export const usersActions = {
     CHANGE_TIME: '[USERS] change time',
     DELETE_USER: '[USERS] delete user',
     SHOW_WINNER: '[USERS] show winner',
+    SELECTED_USER: '[USERS] set selected user'
 }
 
 export const addUser = (user) => ({
@@ -58,4 +59,9 @@ export const deleteUser = (user) => ({
 
 export const showWinner = () => ({
     type: usersActions.SHOW_WINNER,
+})
+
+export const setSelectedUsers = (userId) => ({
+    type: usersActions.SELECTED_USER,
+    payload: userId
 })

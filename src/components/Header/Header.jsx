@@ -28,8 +28,9 @@ export default function Header() {
                         Contests
                     </Typography>
                     <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
+                        <LinkTab label="competitions" to="/competition" />
                         <LinkTab label="users" to="/users" />
-                        <LinkTab label="create" to="/create" />
+                        <LinkTab label="create contest" to="/create" />
                     </Tabs>
                 </Toolbar>
             </AppBar>

@@ -9,7 +9,7 @@ import { changeBtnDisabled } from '../../actions';
 
 export default function ModalForm() {
     const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0, });
-    const { isOpenModal, firstName, secondName, id, isDisabled } = useSelector((state) => state.users)
+    const { isOpenModal, registerData, isDisabled } = useSelector((state) => state.users)
     const dispatch = useDispatch();
 
     const style = {
@@ -26,9 +26,15 @@ export default function ModalForm() {
         px: 4,
         pb: 3,
     };
-
     const addNewUser = () => {
-        dispatch(addUser({ id: id, name: firstName, secondName: secondName, time: `${parseTime(time.m)}:${parseTime(time.s)}:${parseTime(time.ms)}` },))
+
+        dispatch(addUser({
+            id: registerData.id,
+            name: registerData.firstName,
+            secondName: registerData.secondName,
+            competition: registerData.competition,
+            time: `${parseTime(time.m)}:${parseTime(time.s)}:${parseTime(time.ms)}`
+        }))
         dispatch(changeModalState(false))
         dispatch(changeBtnDisabled({ start: false, stop: true, reset: true }))
         setTime({ ms: 0, s: 0, m: 0 })
@@ -46,8 +52,9 @@ export default function ModalForm() {
         >
             <Box sx={{ ...style, width: 400 }}>
                 <Typography variant='h4' components='h4' sx={{ textAlign: 'center' }}>Paticipant</Typography>
-                <p>ID : {id}</p>
-                <p>Participant : {firstName} {secondName}</p>
+                <p>ID : {registerData.id}</p>
+                <p>Participant : {registerData.firstName} {registerData.secondName}</p>
+                <p>contests : {registerData.competition}</p>
                 <Timer time={time} setTime={setTime} />
                 <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mt: 4 }}>
                     <MyButton onClick={closeModal} disabled={isDisabled.cancel}>Cancel</MyButton>

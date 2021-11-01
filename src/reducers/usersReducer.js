@@ -1,11 +1,16 @@
 import { usersActions } from "../actions";
+import { getId } from '../utils'
 
 export const initialState = {
     usersData: [],
     filtredUsers: [],
     isOpenModal: false,
-    firstName: 'firstName',
-    secondName: 'secondName',
+    registerData: {
+        firstName: 'firstName',
+        secondName: 'secondName',
+        competition: null,
+        id: getId(),
+    },
     isDisabled: {
         save: true,
         cancel: false,
@@ -13,10 +18,9 @@ export const initialState = {
         stop: true,
         reset: true,
     },
-    id: '111111',
     winner: {},
-    contests: {},
-    selectedUser: {}
+    contests: [],
+    filtredContests: []
 };
 
 
@@ -46,28 +50,34 @@ export function usersReducer(state = initialState, action) {
                 }
             }
 
+        case usersActions.FIND_CONTESTS:
+            if (action.payload) {
+                return {
+                    ...state,
+                    filtredContests: state.contests.filter((user) => {
+                        return user.name.toLowerCase().includes(action.payload.toLowerCase())
+                    })
+                }
+            } else {
+                return {
+                    ...state,
+                    filtredContests: state.contests
+                }
+            }
+
         case usersActions.OPEN_CLOSE_MODAL:
             return {
                 ...state,
                 isOpenModal: action.payload
             }
 
-        case usersActions.SET_FIRST_NAME:
+        case usersActions.SET_REGISTER_DATA:
             return {
                 ...state,
-                firstName: action.payload
-            }
-
-        case usersActions.SET_SECOND_NAME:
-            return {
-                ...state,
-                secondName: action.payload
-            }
-
-        case usersActions.SET_USER_ID:
-            return {
-                ...state,
-                id: action.payload
+                registerData: {
+                    ...state.registerData,
+                    ...action.payload
+                }
             }
 
         case usersActions.SET_DISABLED_BUTTONS:
@@ -93,29 +103,38 @@ export function usersReducer(state = initialState, action) {
                 filtredUsers: action.payload,
             }
 
-        case usersActions.SHOW_WINNER:
-            let min = +state.filtredUsers[0].time.split(':').join('')
-            let winnerObj = {}
-
-            for (let i = 0; i < state.filtredUsers.length; i++) {
-                if (+state.filtredUsers[i].time.split(':').join('') < min) {
-                    min = +state.filtredUsers[i].time.split(':').join('')
-                    winnerObj = state.filtredUsers[i]
-                }
-            }
+        case usersActions.CREATE_CONTENTS:
             return {
                 ...state,
-                winner: winnerObj
+                contests: [...state.contests, { ...action.payload, status: 'acitve' }],
+                filtredContests: [...state.filtredContests, { ...action.payload, status: 'acitve' }],
             }
 
-        case usersActions.SELECTED_USER:
-            console.log(action.payload)
-        // return {
-        //     ...state,
+        case usersActions.SET_COMPATITION_WINNER:
+            return {
+                ...state,
+                contests: state.contests.map((item) => {
+                    if (item.name === action.payload.competition) {
+                        return {
+                            ...item,
+                            status: 'finished',
+                            winner: action.payload,
+                        }
+                    }
+                    return item
+                }),
+                filtredContests: state.filtredContests.map((item) => {
+                    if (item.name === action.payload.competition) {
+                        return {
+                            ...item,
+                            status: 'finished',
+                            winner: action.payload,
+                        }
+                    }
+                    return item
+                }),
 
-        // }
-
-
+            }
         default:
             return state;
     }

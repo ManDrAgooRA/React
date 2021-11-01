@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import MyButton from './UI/Button/MyButton';
 import { CardActionArea, CardActions, CardContent, Card } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteUser, showWinner } from '../actions';
+import { deleteUser } from '../actions';
 import { useHistory } from "react-router-dom";
 
 export default function UserCard({ user }) {
@@ -14,7 +14,6 @@ export default function UserCard({ user }) {
         dispatch(deleteUser(filtredUsers.filter((filtredUser) => {
             return filtredUser.id !== user.id
         })))
-        dispatch(showWinner({}))
     }
 
     return (
@@ -24,6 +23,7 @@ export default function UserCard({ user }) {
                     <p>id : {user.id}</p>
                     <p>name : {user.name}</p>
                     <p>time : {user.time}</p>
+                    <p>competion : {user.competition}</p>
                 </CardContent>
             </CardActionArea>
             <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>

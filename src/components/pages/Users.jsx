@@ -6,16 +6,13 @@ import { useSelector } from 'react-redux'
 
 export default function Users() {
     const { filtredUsers } = useSelector((state) => state.users);
-
     return (
         <Grid container spacing={2}>
             {filtredUsers.map((user) => {
-                // if (filtredUsers.length) {
                 return (
                     <Grid item xs={4} key={uuidv4()}>
                         <UserCard user={user} />
                     </Grid>)
-                // }
             })}
         </Grid >
     )

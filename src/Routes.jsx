@@ -11,7 +11,7 @@ export default function Routes() {
     return (
         <Switch>
             {allRoutes.map(route => <Route key={uuidv4()} path={route.path} component={route.component} exact />)}
-            <Redirect to='/error' />
+            <Redirect to='/' />
         </Switch >
     )
 }

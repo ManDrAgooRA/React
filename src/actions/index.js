@@ -1,2 +1,2 @@
-export * from './form'
+export * from './movies'
 export * from './user'

@@ -3,6 +3,7 @@ import { Typography, Grid } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useHistory } from 'react-router';
 import * as yup from "yup";
 import { logIn } from '../actions';
 import MyInput from '../components/UI/Input/MyInput'
@@ -10,8 +11,9 @@ import MyButton from './../components/UI/Button/MyButton';
 
 export default function Login() {
     const dispatch = useDispatch();
+    const history = useHistory();
     const schema = yup.object().shape({
-        email: yup.string().required(),
+        email: yup.string().email().required(),
         password: yup.string().required(),
     }).required()
 
@@ -21,6 +23,7 @@ export default function Login() {
 
     const onSubmit = (data) => {
         dispatch(logIn(data))
+        history.push(`/movies`)
         reset()
     }
 
@@ -51,18 +54,14 @@ export default function Login() {
 
                         <MyInput
                             {...register("email")}
-                            type='email'
                             label="Enter email"
                             error={!!errors.email}
                             helperText={errors?.email?.message}
-                            sx={{
-                                mb: 4
-                            }}
                         />
 
                         <MyInput
                             {...register("password")}
-                            type='password'
+                            type={'password'}
                             label="Enter password"
                             error={!!errors.password}
                             helperText={errors?.password?.message}

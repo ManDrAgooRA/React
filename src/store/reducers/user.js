@@ -1,10 +1,9 @@
-import { userActions } from '../actions'
+import { userActions } from "../actions"
 export const initialState = {
-    currentUser: {},
-    isLoggedIn: false,
+    isLoggedIn: true,
 }
 
-export function userReducer(state = initialState, action) {
+export function user(state = initialState, action) {
     switch (action.type) {
         case userActions.LOG_IN:
             return {

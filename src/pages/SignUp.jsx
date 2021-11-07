@@ -13,7 +13,7 @@ import { useHistory } from 'react-router';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { logIn } from '../actions';
+import { logIn } from '../store/actions';
 import MyInput from '../components/UI/Input/MyInput'
 import MyButton from './../components/UI/Button/MyButton';
 

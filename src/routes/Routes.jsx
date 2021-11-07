@@ -9,7 +9,7 @@ export default function Routes() {
         <Switch>
             {allRoutes.map((route, i) =>
                 route.isPrivate ? (
-                    <PrivateRoute key={uuidv4()} path={route.path} component={route.component} />
+                    <PrivateRoute key={uuidv4()} path={route.path} component={route.component} exact />
                 ) : (
                     <Route key={uuidv4()} path={route.path} component={route.component} exact />
                 )

@@ -6,20 +6,14 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Box } from '@mui/material';
-import CircularStatic from '../components/UI/Progress';
-import { useDispatch } from 'react-redux';
-import { fetchSelectedMovie } from '../actions';
 import { useHistory } from 'react-router';
+import CircularStatic from '../components/UI/CircularStatic';
 
 export default function MovieCard({ movie }) {
     const history = useHistory()
-    const dispatch = useDispatch()
-    const imgPath = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
 
-    // console.log(history)
-    const showId = () => {
-        dispatch(fetchSelectedMovie(movie.id))
-        // history.push(`/movies/:${movie.id}`)
+    const redirectHandler = () => {
+        history.push(`/movies/${movie.id}`)
     }
 
     return (
@@ -47,22 +41,28 @@ export default function MovieCard({ movie }) {
                             cursor: 'pointer'
                         }
                     }}
-                    onClick={() => { history.push(`/movies/${movie.id}`) }}
+                    onClick={redirectHandler}
                 >
-                    <img src={imgPath} alt="poster" style={{ maxWidth: '100%' }} />
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="poster" style={{ maxWidth: '100%' }} />
                 </Box>
 
                 <Box sx={{
                     padding: '26px 20px 0 20px',
                     position: 'relative'
                 }}>
-                    <CircularStatic progress={Math.round(movie.vote_average * 10)} />
+                    <Box
+                        sx={{
+                            position: 'absolute',
+                            top: '-24px',
+                        }}
+                    >
+                        <CircularStatic progress={Math.round(movie.vote_average * 10)} />
+                    </Box>
 
                     <Box
                         sx={{
                             display: 'flex',
                             justifyContent: 'space-between',
-
                         }}
                     >
 
@@ -76,7 +76,7 @@ export default function MovieCard({ movie }) {
                                         cursor: 'pointer'
                                     }
                                 }}
-                                onClick={showId}
+                                onClick={redirectHandler}
 
                             >
                                 {movie.original_title}

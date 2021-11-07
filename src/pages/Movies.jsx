@@ -1,17 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchMovies } from '../actions';
+import { fetchMovies, setCurrentPage } from '../store/actions'
 import MovieCard from './MovieCard';
+import Loader from './../components/UI/Loader/Loader';
+import MyPagination from '../components/UI/MyPagination';
 
 export default function Movies() {
-    const { movies } = useSelector((state) => state.movies)
     const dispatch = useDispatch();
+    const { movies, isLoading, totalPages, currentPage } = useSelector((state) => state.movies)
+    const [page, setPage] = useState(currentPage)
+
 
     useEffect(() => {
-        dispatch(fetchMovies())
-    }, [dispatch])
+        let page = JSON.parse(localStorage.getItem('currentPage'))
+        setPage(page)
+        setCurrentPage(page)
+        dispatch(fetchMovies(page))
+    }, [dispatch, page])
+
+    const changePage = (event, value) => {
+        setPage(value)
+        setCurrentPage(value)
+        localStorage.setItem('currentPage', JSON.stringify(value))
+    }
+
+
+    if (isLoading) {
+        return <Loader />
+    }
 
     return (
         <>
@@ -23,6 +41,7 @@ export default function Movies() {
                         </Grid>
                     )
                 })}
+                <MyPagination count={totalPages} page={page} changePage={changePage} />
             </Grid>
         </>
     )

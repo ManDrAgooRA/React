@@ -11,7 +11,7 @@ export const allRoutes = [
     { path: '/signup', component: SignUp },
     { path: '/favorites', component: Favorites, isPrivate: true },
     { path: '/movies', component: Movies, isPrivate: true },
-    { path: '/movies/580489', component: MoviePage, isPrivate: true },
+    { path: '/movies/:id', component: MoviePage, isPrivate: true },
     { path: '/userinformation', component: UserInformation, isPrivate: true },
     { path: '/error', component: Error },
 ]

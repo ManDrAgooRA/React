@@ -9,6 +9,7 @@ import { changeBtnDisabled } from '../../actions';
 
 export default function ModalForm() {
     const [time, setTime] = useState({ ms: 0, s: 0, m: 0, h: 0, });
+    const [interV, setInterV] = useState();
     const { isOpenModal, registerData, isDisabled } = useSelector((state) => state.users)
     const dispatch = useDispatch();
 
@@ -43,6 +44,9 @@ export default function ModalForm() {
     const closeModal = () => {
         dispatch(changeModalState(false))
         setTime({ ms: 0, s: 0, m: 0 })
+        dispatch(changeModalState(false))
+        dispatch(changeBtnDisabled({ start: false, stop: true, reset: true }))
+        clearInterval(interV)
     }
 
     return (
@@ -55,7 +59,7 @@ export default function ModalForm() {
                 <p>ID : {registerData.id}</p>
                 <p>Participant : {registerData.firstName} {registerData.secondName}</p>
                 <p>contests : {registerData.competition}</p>
-                <Timer time={time} setTime={setTime} />
+                <Timer time={time} setTime={setTime} interV={interV} setInterV={setInterV} />
                 <Box sx={{ display: 'flex', justifyContent: 'space-evenly', mt: 4 }}>
                     <MyButton onClick={closeModal} disabled={isDisabled.cancel}>Cancel</MyButton>
                     <MyButton onClick={addNewUser} disabled={isDisabled.save}>Save</MyButton>

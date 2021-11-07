@@ -104,6 +104,7 @@ export function usersReducer(state = initialState, action) {
             }
 
         case usersActions.CREATE_CONTENTS:
+            console.log(action.payload)
             return {
                 ...state,
                 contests: [...state.contests, { ...action.payload, status: 'acitve' }],

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import MyInput from './UI/Input/MyInput';
 import { Container, Grid } from '@mui/material';
 import RegistrationForm from './RegistrationForm/RegistrationForm';
@@ -12,18 +12,28 @@ function AppComponent() {
     const dispatch = useDispatch();
     const { filtredUsers, contests } = useSelector((state) => state.users)
 
+
     useEffect(() => {
         const usersLocalStorageData = JSON.parse(localStorage.getItem('users'));
-        usersLocalStorageData.map((item) => {
-            return dispatch(addUser(item))
-        })
+        console.log(typeof usersLocalStorageData)
+        if (usersLocalStorageData.length) {
+            usersLocalStorageData.map((item) => {
+                return dispatch(addUser(item))
+            })
+        }
+
     }, [dispatch])
 
     useEffect(() => {
         const contentsLocalStorageData = JSON.parse(localStorage.getItem('contents'));
-        contentsLocalStorageData.map((item) => {
-            return dispatch(createContents(item))
-        })
+        console.log(typeof contentsLocalStorageData)
+
+        // if (contentsLocalStorageData.length) {
+        //     contentsLocalStorageData.map((item) => {
+        //         return dispatch(createContents(item))
+        //     })
+        // }
+
     }, [dispatch])
 
     useEffect(() => {
@@ -33,7 +43,6 @@ function AppComponent() {
     useEffect(() => {
         localStorage.setItem('contents', JSON.stringify(contests))
     }, [contests])
-
 
     const handlerChange = (e) => {
         dispatch(findUser(e.target.value))

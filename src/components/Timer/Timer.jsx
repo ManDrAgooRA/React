@@ -3,7 +3,7 @@ import { parseTime } from '../../utils';
 import { Box } from '@mui/material';
 import TimerButtons from '../Timer/TimersButtons';
 
-export default function Timer({ time, setTime }) {
+export default function Timer({ time, setTime, interV, setInterV }) {
 
     return (
         <>
@@ -14,7 +14,7 @@ export default function Timer({ time, setTime }) {
                 :
                 {parseTime(time.ms)}
             </Box>
-            <TimerButtons time={time} setTime={setTime}></TimerButtons>
+            <TimerButtons time={time} setTime={setTime} interV={interV} setInterV={setInterV}></TimerButtons>
         </>
     )
 }

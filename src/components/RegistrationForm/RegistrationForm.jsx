@@ -17,6 +17,7 @@ export default function RegistrationForm() {
     const [value, setValue] = useState('');
     const { contests } = useSelector((state) => state.users)
     const dispatch = useDispatch();
+
     const schema = yup.object().shape({
         firstName: yup.string().required(),
         secondName: yup.string().required(),
@@ -81,11 +82,6 @@ export default function RegistrationForm() {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        {/* {contests.map((item) => {
-                            if (item) {
-                                <MenuItem key={uuidv4()} value={item.name}>{item.name}</MenuItem>
-                            }
-                        })} */}
                         {contests.map((item) => {
                             return <MenuItem key={uuidv4()} value={item.name}>{item.name}</MenuItem>
                         })}

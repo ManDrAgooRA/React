@@ -1,12 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Box, ButtonGroup } from '@mui/material';
 import MyButton from '../UI/Button/MyButton';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeTimer } from '../../utils'
 import { changeBtnDisabled } from '../../actions';
 
-export default function TimersButtons({ time, setTime }) {
-    const [interV, setInterV] = useState();
+export default function TimersButtons({ time, setTime, interV, setInterV }) {
     const { isDisabled } = useSelector((state) => state.users)
     const dispatch = useDispatch();
 

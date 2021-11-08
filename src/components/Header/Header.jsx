@@ -4,10 +4,8 @@ import { useHistory } from 'react-router';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import './Header.scss'
-import { useSelector } from 'react-redux';
 
 export default function Header() {
-    const { isLoggedIn } = useSelector((state) => state.user)
     const [isActiveMenu, setIsActiveMenu] = useState(false);
     const history = useHistory()
 
@@ -47,7 +45,7 @@ export default function Header() {
                                 </div>
 
                                 <ul className={isActiveMenu ? 'menu menu__active' : 'menu'}>
-                                    {isLoggedIn ?
+                                    {localStorage.getItem('session_id') ?
                                         <>
                                             <li onClick={() => { history.push('/movies') }}>Movie</li>
                                             <li onClick={() => { history.push('/favorites') }}>Favorites</li>

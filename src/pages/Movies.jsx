@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchMovies, setCurrentPage } from '../store/actions'
+import { setCurrentPage } from '../store/actions'
 import MovieCard from './MovieCard';
 import Loader from './../components/UI/Loader/Loader';
 import MyPagination from '../components/UI/MyPagination';
+import { fetchMovies } from './../store/thunk';
 
 export default function Movies() {
     const dispatch = useDispatch();
@@ -13,11 +14,17 @@ export default function Movies() {
     const [page, setPage] = useState(currentPage)
 
     useEffect(() => {
-        let page = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
-        setPage(page)
-        setCurrentPage(page)
-        dispatch(fetchMovies(page))
+        let pageLocal = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
+        if (pageLocal) {
+            setPage(pageLocal)
+            setCurrentPage(pageLocal)
+        } else {
+            setPage(currentPage)
+            setCurrentPage(currentPage)
+        }
+        dispatch(fetchMovies(pageLocal))
     }, [dispatch, page])
+
 
     const changePage = (event, value) => {
         setPage(value)
@@ -40,7 +47,12 @@ export default function Movies() {
                         </Grid>
                     )
                 })}
-                <MyPagination count={totalPages} page={page} changePage={changePage} />
+                <Grid item xs={12} sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                }}>
+                    <MyPagination count={totalPages} page={page} changePage={changePage} />
+                </Grid>
             </Grid>
         </>
     )

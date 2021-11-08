@@ -32,6 +32,13 @@ export function movies(state = initialState, action) {
                 currentPage: action.payload
             }
 
+        case moviesActions.CLEAR_SELECTED_MOVIE:
+            return {
+                ...state,
+                selectedMovies: null,
+                isLoadingCurrentMovie: true
+            }
+
         default:
             return state
     }

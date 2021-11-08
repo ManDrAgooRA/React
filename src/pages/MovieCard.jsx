@@ -37,13 +37,27 @@ export default function MovieCard({ movie }) {
 
                 <Box
                     sx={{
+                        position: 'relative',
+                        paddingBottom: '400px',
+                        background: '#bebebe',
                         '&:hover': {
                             cursor: 'pointer'
                         }
                     }}
                     onClick={redirectHandler}
                 >
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="poster" style={{ maxWidth: '100%' }} />
+                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`${movie.original_title}`}
+                        style={{
+                            position: 'absolute',
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            top: 0,
+                            width: '100%',
+                            height: '100%',
+                        }}
+
+                    />
                 </Box>
 
                 <Box sx={{

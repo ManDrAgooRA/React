@@ -14,7 +14,7 @@ export default function Routes() {
                     <Route key={uuidv4()} path={route.path} component={route.component} exact />
                 )
             )}
-            <Redirect to="/error" />
+            <Redirect to="/login" />
         </Switch>
     )
 }

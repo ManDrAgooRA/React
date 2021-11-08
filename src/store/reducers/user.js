@@ -1,18 +1,18 @@
-import { userActions } from "../actions"
-export const initialState = {
-    isLoggedIn: false,
-}
+import { usersActions } from './../actions/user';
 
+const initialState = {
+    user: {},
+}
 export function user(state = initialState, action) {
     switch (action.type) {
-        case userActions.LOG_IN:
+
+        case usersActions.FETCH_USER_SUCCESS: {
             return {
                 ...state,
-                currentUser: { ...action.payload },
-                isLoggedIn: true
+                user: { ...action.payload.user }
             }
+        }
+        default: return state
 
-        default:
-            return state
     }
 }

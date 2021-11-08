@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Box, Typography } from '@mui/material';
 import { useHistory } from 'react-router';
-import { fetchSelectedMovie } from '../store/actions';
+import { clearSeletedMovie } from '../store/actions';
 import Loader from './../components/UI/Loader/Loader';
 import CircularStatic from '../components/UI/CircularStatic';
 import MyButton from './../components/UI/Button/MyButton';
+import { fetchSelectedMovie } from '../store/thunk';
 
 export default function MoviePage() {
     const history = useHistory();
@@ -20,6 +21,11 @@ export default function MoviePage() {
     const { id } = useParams();
     if (isLoadingCurrentMovie) {
         return <Loader />
+    }
+
+    const handelerBack = () => {
+        history.goBack()
+        dispatch(clearSeletedMovie())
     }
 
     return (
@@ -42,7 +48,7 @@ export default function MoviePage() {
                 </Grid>
 
                 <Grid item xs={12} lg={10}>
-                    <MyButton onClick={() => { history.goBack() }}
+                    <MyButton onClick={handelerBack}
                         sx={{ my: 2 }}
 
                     >back</MyButton>

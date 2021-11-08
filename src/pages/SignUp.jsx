@@ -8,20 +8,27 @@ import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { logIn } from '../store/actions';
+import * as api from '../apis'
 import MyInput from '../components/UI/Input/MyInput'
 import MyButton from './../components/UI/Button/MyButton';
+import { useFetching } from '../hooks/useFetching';
+
 
 export default function SignUp() {
-    const dispatch = useDispatch();
     const history = useHistory();
     const [sex, setSex] = useState('female');
     const [date, setDate] = useState(null);
+    const [fetchToken] = useFetching(async () => {
+        const token = await api.getToken();
+
+        const redirectUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/session`
+        window.open(redirectUrl, '_blank', 'rel="noopener noreferrer"')
+    })
 
     const handleChange = (event) => {
         setSex(event.target.value);
@@ -45,9 +52,10 @@ export default function SignUp() {
     });
 
     const onSubmit = data => {
-        let dateOfBirth = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
+        fetchToken()
+        // let dateOfBirth = `${date.getDate()}-${date.getMonth()}-${date.getFullYear()}`
         // console.log({ ...data, sex, dateOfBirth })
-        dispatch(logIn({ ...data, sex, dateOfBirth }))
+        // dispatch(logIn({ ...data, sex, dateOfBirth }))
         history.push(`/movies`)
         reset()
     };
@@ -93,6 +101,7 @@ export default function SignUp() {
 
                         <LocalizationProvider dateAdapter={AdapterDateFns} >
                             <DatePicker
+                                disableFuture
                                 {...register("dateOfBirth")}
                                 label="Date of birth"
                                 required={true}

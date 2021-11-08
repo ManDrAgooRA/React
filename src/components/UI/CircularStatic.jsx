@@ -39,3 +39,6 @@ export default function CircularStatic({ progress }) {
     return <CircularProgressWithLabel value={progress} />;
 }
 
+CircularStatic.propTypes = {
+    progress: PropTypes.number
+}

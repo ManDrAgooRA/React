@@ -6,7 +6,7 @@ import * as PropTypes from 'prop-types'
 export default function MyPagination({ page, count, changePage }) {
 
     return (
-        <Stack spacing={2} sx={{ width: '100%', display: 'flex', alignItems: 'center', mt: 2 }}>
+        <Stack spacing={2}>
             <Pagination count={count} page={page} onChange={changePage} />
         </Stack>
     )

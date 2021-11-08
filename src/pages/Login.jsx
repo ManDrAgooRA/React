@@ -1,37 +1,40 @@
 import React from 'react'
 import { Typography, Grid } from '@mui/material';
-import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useHistory } from 'react-router';
 import * as yup from "yup";
 import MyInput from '../components/UI/Input/MyInput'
 import MyButton from './../components/UI/Button/MyButton';
-import { getToken, getSessionId } from '../apis/auth';
+import * as api from '../apis'
+import { useFetching } from '../hooks/useFetching';
 
 
 export default function Login() {
-    // const dispatch = useDispatch();
-    // const history = useHistory();
+    const [fetchToken] = useFetching(async () => {
+        const token = await api.getToken();
+
+        const redirectUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/session`;
+        window.open(redirectUrl, '_blank', 'noopener noreferrer');
+
+        // const sessionResponse = await api.getSessionId(token.request_token)
+        // localStorage.setItem('session_id', sessionResponse.session_id)
+
+    })
+
     const schema = yup.object().shape({
         email: yup.string().email().required(),
         password: yup.string().required(),
     }).required()
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = async (data) => {
-        // dispatch(logIn(data))
-        // history.push(`/movies`)
-        // reset()
-        const response = await getToken()
-        localStorage.setItem('request_token', response.request_token)
-
-        const redirectUrl = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=http://localhost:3000/session`
-        window.open(redirectUrl, '_blank')
+    const onSubmit = async () => {
+        fetchToken()
     }
+
+    console.log('login')
 
     return (
         <>

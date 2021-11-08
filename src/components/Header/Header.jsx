@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Container, Box, IconButton, Button, Typography, Toolbar, AppBar } from '@mui/material';
+import { Container, Box, IconButton, Button, Toolbar, AppBar } from '@mui/material';
 import { useHistory } from 'react-router';
+import ThemeSwitch from '../UI/Switch';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import './Header.scss'
@@ -23,11 +24,9 @@ export default function Header() {
                 <AppBar position="static" sx={{ backgroundColor: '#032541', color: '#fff' }}>
                     <Container>
                         <Toolbar className='header' style={{ padding: 0, display: 'flex', justifyContent: 'space-between' }} >
-                            <div className="logo">
-                                <Typography variant="h6" component="a" >
-                                    Photos
-                                </Typography>
-                            </div>
+                            <Box>
+                                <ThemeSwitch />
+                            </Box>
 
                             <nav style={{ display: 'flex' }}>
                                 <div className="menu__burger">

@@ -1,6 +1,6 @@
 import { userActions } from "../actions"
 export const initialState = {
-    isLoggedIn: true,
+    isLoggedIn: false,
 }
 
 export function user(state = initialState, action) {

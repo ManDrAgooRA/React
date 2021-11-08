@@ -27,7 +27,6 @@ export function movies(state = initialState, action) {
             }
 
         case moviesActions.SET_CURRENT_PAGE:
-            console.log(action.payload)
             return {
                 ...state,
                 currentPage: action.payload

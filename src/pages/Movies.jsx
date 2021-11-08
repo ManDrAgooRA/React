@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,9 +12,8 @@ export default function Movies() {
     const { movies, isLoading, totalPages, currentPage } = useSelector((state) => state.movies)
     const [page, setPage] = useState(currentPage)
 
-
     useEffect(() => {
-        let page = JSON.parse(localStorage.getItem('currentPage'))
+        let page = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
         setPage(page)
         setCurrentPage(page)
         dispatch(fetchMovies(page))
@@ -23,7 +22,7 @@ export default function Movies() {
     const changePage = (event, value) => {
         setPage(value)
         setCurrentPage(value)
-        localStorage.setItem('currentPage', JSON.stringify(value))
+        localStorage.setItem('currentPageLocalStorage', JSON.stringify(value))
     }
 
 

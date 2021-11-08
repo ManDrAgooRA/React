@@ -5,13 +5,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useHistory } from 'react-router';
 import * as yup from "yup";
-import { logIn } from '../store/actions';
 import MyInput from '../components/UI/Input/MyInput'
 import MyButton from './../components/UI/Button/MyButton';
+import { getToken, getSessionId } from '../apis/auth';
+
 
 export default function Login() {
-    const dispatch = useDispatch();
-    const history = useHistory();
+    // const dispatch = useDispatch();
+    // const history = useHistory();
     const schema = yup.object().shape({
         email: yup.string().email().required(),
         password: yup.string().required(),
@@ -21,10 +22,15 @@ export default function Login() {
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        dispatch(logIn(data))
-        history.push(`/movies`)
-        reset()
+    const onSubmit = async (data) => {
+        // dispatch(logIn(data))
+        // history.push(`/movies`)
+        // reset()
+        const response = await getToken()
+        localStorage.setItem('request_token', response.request_token)
+
+        const redirectUrl = `https://www.themoviedb.org/authenticate/${response.request_token}?redirect_to=http://localhost:3000/session`
+        window.open(redirectUrl, '_blank')
     }
 
     return (

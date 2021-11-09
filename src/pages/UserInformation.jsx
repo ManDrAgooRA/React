@@ -2,12 +2,15 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 
 export default function UserInformation() {
-    const userData = useSelector((state) => state.user)
-    console.log(userData)
+    const { user } = useSelector((state) => state.user)
+    console.log(user)
 
     return (
         <div>
-            UserInformation
+            <p>{user.id}</p>
+            <p>{user.username}</p>
+            <p>{user.iso_3166_1}</p>
+
         </div>
     )
 }

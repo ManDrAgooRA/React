@@ -13,7 +13,6 @@ export const authAxios = axios.create({
 
 export const getToken = async () => {
     const { data: { request_token }, } = await authAxios.get('/authentication/token/new')
-    localStorage.setItem('request_token', request_token)
     return request_token
 }
 
@@ -21,7 +20,7 @@ export const getSessionId = async (requestToken) => {
     const { data: session_id } = await authAxios.post('/authentication/session/new', {
         request_token: requestToken
     })
-    console.log(session_id)
+
     localStorage.setItem('session_id', session_id.session_id)
     return session_id
 }
@@ -34,6 +33,5 @@ export const getAccount = async (sessionId) => {
     });
 
     localStorage.setItem('user', JSON.stringify(data));
-
     return data;
 };

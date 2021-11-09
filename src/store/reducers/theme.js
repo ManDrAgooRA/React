@@ -6,13 +6,12 @@ export const initialState = {
 
 export function theme(state = initialState, action) {
     switch (action.type) {
-        case themeActions.TOGGLE_THEME: {
-            console.log('work')
+        case themeActions.TOGGLE_THEME:
             return {
                 ...state,
                 isLightMode: !state.isLightMode
             }
-        }
+
 
         default:
             return state

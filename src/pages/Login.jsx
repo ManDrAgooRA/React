@@ -1,25 +1,48 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Typography, Grid } from '@mui/material';
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { useSelector, useDispatch } from 'react-redux';
+import { useLocation, useHistory } from 'react-router';
 import MyInput from '../components/UI/Input/MyInput'
 import MyButton from './../components/UI/Button/MyButton';
 import * as api from '../apis'
 import { useFetching } from '../hooks/useFetching';
-
+import { getCurrentUser } from '../store/thunk';
 
 export default function Login() {
+    const { isLogin } = useSelector((state) => state.user)
+    const search = useLocation().search;
+
+
     const [fetchToken] = useFetching(async () => {
         const token = await api.getToken();
-
-        const redirectUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/session`;
+        const redirectUrl = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:3000/login`;
         window.open(redirectUrl, '_blank', 'noopener noreferrer');
-
-        // const sessionResponse = await api.getSessionId(token.request_token)
-        // localStorage.setItem('session_id', sessionResponse.session_id)
-
     })
+
+    const history = useHistory();
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const requestToken = new URLSearchParams(search).get('request_token')
+        if (requestToken) {
+            dispatch(getCurrentUser(requestToken))
+            history.push('/movies')
+        } else {
+            fetchToken()
+        }
+
+    }, [search, dispatch, history])
+
+    useEffect(() => {
+        if (isLogin) {
+            history.push('/movies')
+        }
+
+    }, [isLogin])
+
 
     const schema = yup.object().shape({
         email: yup.string().email().required(),
@@ -33,8 +56,6 @@ export default function Login() {
     const onSubmit = async () => {
         fetchToken()
     }
-
-    console.log('login')
 
     return (
         <>

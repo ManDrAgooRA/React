@@ -5,7 +5,6 @@ import Movies from './pages/Movies'
 import MoviePage from './pages/MoviePage'
 import UserInformation from './pages/UserInformation'
 import Error from './pages/Error'
-import Session from './pages/Session'
 
 export const allRoutes = [
     { path: '/login', component: Login },
@@ -14,6 +13,5 @@ export const allRoutes = [
     { path: '/movies', component: Movies, isPrivate: true },
     { path: '/movies/:id', component: MoviePage, isPrivate: true },
     { path: '/userinformation', component: UserInformation, isPrivate: true },
-    { path: '/session', component: Session },
     { path: '/error', component: Error },
 ]

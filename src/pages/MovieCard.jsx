@@ -7,10 +7,13 @@ import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Box } from '@mui/material';
 import { useHistory } from 'react-router';
+import { useSelector } from 'react-redux';
 import CircularStatic from '../components/UI/CircularStatic';
+import * as api from '../apis'
+
 
 export default function MovieCard({ movie }) {
-
+    const { user } = useSelector((state) => state.user)
     const history = useHistory()
 
     const redirectHandler = () => {
@@ -18,7 +21,10 @@ export default function MovieCard({ movie }) {
     }
 
     const addToFavorite = () => {
-        console.log(movie.id)
+        api.fetchAddToFavoriteApi(user.id, localStorage.getItem('session_id'), movie.id)
+        // console.log(user.id)
+        // console.log(localStorage.getItem('session_id'))
+        // console.log(movie.id)
     }
 
     return (

@@ -58,6 +58,8 @@ export default function MoviePage() {
                         <Box sx={{ position: 'relative', width: '40px', height: '40px' }}>
                             <CircularStatic progress={Math.round(selectedMovies.vote_average * 10)} />
                         </Box>
+                        <p>{selectedMovies.id}</p>
+                        <p>original_language :{selectedMovies.original_language}</p>
                         <p>{selectedMovies.overview}</p>
                         <p>Genres:</p>
                         <ul>

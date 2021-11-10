@@ -15,12 +15,12 @@ import MyButton from './../UI/Button/MyButton';
 import { toggleTheme, changeIsLogin } from '../../store/actions'
 
 export default function Header() {
-    const { isLogin } = useSelector((state) => state.user)
+    const { isLogin, user } = useSelector((state) => state.user)
     const [anchorEl, setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const history = useHistory()
     const dispatch = useDispatch()
-
+    console.log(user)
     useEffect(() => {
         // if (localStorage.getItem('isLightMode') === 'true') {
         //     dispatch(toggleTheme(true))
@@ -31,7 +31,6 @@ export default function Header() {
             dispatch(changeIsLogin())
         }
 
-        // dispatch(toggleTheme())
     }, [dispatch])
 
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -135,6 +134,7 @@ export default function Header() {
                                 sx={{ display: { xs: 'none', md: 'flex' } }}
                                 onClick={() => { history.push('/userinformation') }}
                             >
+                                <p>{user.username}</p>
                                 <IconButton
                                     size="large"
                                     edge="end"

@@ -12,12 +12,10 @@ const userMiddleWare = store => next => async (action) => {
     if (action.type !== usersActions.FETCH_USER_SUCCESS && !isLogin && localStorage.getItem('session_id')) {
         const sessionId = localStorage.getItem('session_id')
         const user = await api.getAccount(sessionId)
-        console.log(user)
+
         store.dispatch(fetchUserSuccess(user))
     }
 
-    console.log(store.getState());
-    console.log(action);
     next(action);
 }
 

@@ -13,3 +13,7 @@ export async function fetchSelectedMovieApi(id) {
     return data
 }
 
+export async function fetchFavoriteMovieSApi(sessionId, acountId, page) {
+    const { data } = await axios.get(`${API}/account/${acountId}/favorite/movies?session_id=${sessionId}&page=${page}&api_key=d1bbcca95aed0d94460fae514cdf6bc3`)
+    return data
+}

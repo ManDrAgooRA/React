@@ -20,7 +20,8 @@ export default function Header() {
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const history = useHistory()
     const dispatch = useDispatch()
-    console.log(user)
+
+
     useEffect(() => {
         // if (localStorage.getItem('isLightMode') === 'true') {
         //     dispatch(toggleTheme(true))

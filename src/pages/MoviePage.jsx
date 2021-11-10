@@ -51,7 +51,7 @@ export default function MoviePage() {
                     <MyButton onClick={handelerBack}
                         sx={{ my: 2 }}
 
-                    >back</MyButton>
+                    >Back</MyButton>
 
                     <Box>
                         <Typography variant='h4' component='h4'>{selectedMovies.original_title}</Typography>

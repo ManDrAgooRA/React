@@ -6,7 +6,7 @@ export const initialState = {
     totalPages: 1,
     selectedMovies: null,
     isLoading: true,
-    isLoadingCurrentMovie: true
+    isLoadingCurrentMovie: true,
 }
 
 export function movies(state = initialState, action) {

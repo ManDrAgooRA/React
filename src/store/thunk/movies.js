@@ -1,5 +1,5 @@
-import { fetchMoviesSuccess, fetchSelectedMovieSuccess } from '../actions';
-import { fetchMoviesApi, fetchSelectedMovieApi } from '../../apis'
+import { fetchMoviesSuccess, fetchSelectedMovieSuccess, fetchFavoriteMoviesSuccess } from '../actions';
+import { fetchMoviesApi, fetchSelectedMovieApi, fetchFavoriteMovieSApi } from '../../apis'
 
 export const fetchMovies = (page) => {
     return async (dispatch) => {
@@ -22,3 +22,16 @@ export const fetchSelectedMovie = (id) => {
         }
     }
 }
+
+export const fetchFavoriteMoives = (sessionId, accountId, page) => {
+    return async (dispatch) => {
+        try {
+            const favoiteMovies = await Promise.resolve(fetchFavoriteMovieSApi(sessionId, accountId, page))
+            dispatch(fetchFavoriteMoviesSuccess(favoiteMovies))
+
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}
+

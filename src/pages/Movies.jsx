@@ -23,7 +23,7 @@ export default function Movies() {
             setCurrentPage(currentPage)
         }
         dispatch(fetchMovies(pageLocal))
-    }, [dispatch, page])
+    }, [dispatch, page, currentPage])
 
 
     const changePage = (event, value) => {
@@ -43,7 +43,7 @@ export default function Movies() {
                 {movies.map((movie) => {
                     return (
                         <Grid key={uuidv4()} item xs={12} md={3} >
-                            <MovieCard key={uuidv4()} movie={movie}></MovieCard>
+                            <MovieCard movie={movie}></MovieCard>
                         </Grid>
                     )
                 })}

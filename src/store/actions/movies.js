@@ -1,6 +1,6 @@
 export const moviesActions = {
     FETCH_MOVIES_SUCCESS: '[MOVIES] Fetch movies success',
-    FETCH_SELECTED_MOVIE_SUCCESS: '[MOVIES] Fetch selected film movie',
+    FETCH_SELECTED_MOVIE_SUCCESS: '[MOVIES] Fetch selected  movie',
     SET_CURRENT_PAGE: '[MOVIE] Set current step',
     CLEAR_SELECTED_MOVIE: '[MOVIE] Clear seleced movie',
 }

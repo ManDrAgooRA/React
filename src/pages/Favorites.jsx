@@ -16,15 +16,18 @@ export default function Favorites() {
 
     useEffect(() => {
         let pageLocal = JSON.parse(localStorage.getItem('currentFavoritesPageLocalStorage'))
+
         if (pageLocal) {
             setFavoritePage(pageLocal)
             setCurrentFavoritePage(pageLocal)
+            dispatch(fetchFavoriteMoives(localStorage.getItem('session_id'), user.id, pageLocal))
         } else {
             setFavoritePage(currentPage)
             setCurrentFavoritePage(currentPage)
+            dispatch(fetchFavoriteMoives(localStorage.getItem('session_id'), user.id, currentPage))
         }
-        dispatch(fetchFavoriteMoives(localStorage.getItem('session_id'), user.id, pageLocal))
-    }, [dispatch, favoritePage])
+
+    }, [dispatch, favoritePage, currentPage, user.id])
 
 
     const changePage = (event, value) => {

@@ -19,7 +19,6 @@ export function favoriteMoives(state = initialState, action) {
             }
 
         case favoritesMoviesActions.SET_CURRENT_FAVORITES_PAGE:
-            console.log(action.payload)
             return {
                 ...state,
                 currentPage: action.ayload

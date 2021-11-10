@@ -10,10 +10,15 @@ import { useHistory } from 'react-router';
 import CircularStatic from '../components/UI/CircularStatic';
 
 export default function MovieCard({ movie }) {
+
     const history = useHistory()
 
     const redirectHandler = () => {
         history.push(`/movies/${movie.id}`)
+    }
+
+    const addToFavorite = () => {
+        console.log(movie.id)
     }
 
     return (
@@ -100,7 +105,7 @@ export default function MovieCard({ movie }) {
                             </Typography>
                         </Box>
 
-                        <CardActions disableSpacing>
+                        <CardActions disableSpacing onClick={addToFavorite}>
                             <IconButton aria-label="add to favorites">
                                 <FavoriteIcon />
                             </IconButton>

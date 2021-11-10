@@ -29,19 +29,16 @@ export default function Login() {
         const requestToken = new URLSearchParams(search).get('request_token')
         if (requestToken) {
             dispatch(getCurrentUser(requestToken))
-            history.push('/movies')
-        } else {
-            fetchToken()
         }
 
-    }, [search, dispatch, history])
+    }, [search, dispatch])
 
     useEffect(() => {
         if (isLogin) {
             history.push('/movies')
         }
 
-    }, [isLogin])
+    }, [isLogin, history])
 
 
     const schema = yup.object().shape({

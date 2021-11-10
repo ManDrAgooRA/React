@@ -12,26 +12,20 @@ import { useHistory } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import ThemeSwitch from '../UI/Switch';
 import MyButton from './../UI/Button/MyButton';
-import { toggleTheme, changeIsLogin } from '../../store/actions'
+import { changeIsLogin } from '../../store/actions'
 
 export default function Header() {
     const { isLogin, user } = useSelector((state) => state.user)
-    const [anchorEl, setAnchorEl] = useState(null);
+    const [setAnchorEl] = useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
     const history = useHistory()
     const dispatch = useDispatch()
 
 
     useEffect(() => {
-        // if (localStorage.getItem('isLightMode') === 'true') {
-        //     dispatch(toggleTheme(true))
-        // } else {
-        //     dispatch(toggleTheme(false))
-        // }
         if (localStorage.getItem('session_id')) {
             dispatch(changeIsLogin())
         }
-
     }, [dispatch])
 
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -49,7 +43,6 @@ export default function Header() {
     };
 
     const menuId = 'primary-search-account-menu';
-
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
 

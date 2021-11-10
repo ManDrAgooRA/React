@@ -12,13 +12,14 @@ import { fetchSelectedMovie } from '../store/thunk';
 export default function MoviePage() {
     const history = useHistory();
     const dispatch = useDispatch()
+    const { id } = useParams();
+
     useEffect(() => {
         dispatch(fetchSelectedMovie(id))
-    }, [dispatch])
+    }, [dispatch, id])
 
     const { selectedMovies, isLoadingCurrentMovie } = useSelector((state) => state.movies)
 
-    const { id } = useParams();
     if (isLoadingCurrentMovie) {
         return <Loader />
     }

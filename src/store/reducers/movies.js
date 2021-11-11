@@ -39,6 +39,13 @@ export function movies(state = initialState, action) {
                 isLoadingCurrentMovie: true
             }
 
+        case moviesActions.FETCH_FOUND_MOVIE_SUCCESS:
+            return {
+                ...state,
+                movies: [...action.payload.results],
+                totalPages: action.payload.total_pages,
+            }
+
         default:
             return state
     }

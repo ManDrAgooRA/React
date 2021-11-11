@@ -3,6 +3,7 @@ export const moviesActions = {
     FETCH_SELECTED_MOVIE_SUCCESS: '[MOVIES] Fetch selected  movie',
     SET_CURRENT_PAGE: '[MOVIE] Set current step',
     CLEAR_SELECTED_MOVIE: '[MOVIE] Clear seleced movie',
+    FETCH_FOUND_MOVIE_SUCCESS: '[MOVIE] Fectch found moives'
 }
 
 export const fetchMoviesSuccess = (movies) => ({
@@ -22,4 +23,9 @@ export const setCurrentPage = (page) => ({
 
 export const clearSeletedMovie = () => ({
     type: moviesActions.CLEAR_SELECTED_MOVIE
+})
+
+export const fetchFoundMoviesSeccess = (foundMoives) => ({
+    type: moviesActions.FETCH_FOUND_MOVIE_SUCCESS,
+    payload: foundMoives
 })

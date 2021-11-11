@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Box, Typography } from '@mui/material';
+import Skeleton from '@mui/material/Skeleton';
 import { useHistory } from 'react-router';
 import { clearSeletedMovie } from '../store/actions';
 import Loader from './../components/UI/Loader/Loader';
@@ -36,19 +37,24 @@ export default function MoviePage() {
                     my: 4
                 }}
             >
-                <Grid item xs={12} lg={2}>
+                <Grid item xs={12} lg={4}>
                     <Box
-                        sx={{ display: 'flex' }}
+                        sx={{ display: 'flex', height: '100%' }}
                     >
-                        <img src={`https://image.tmdb.org/t/p/w500${selectedMovies.poster_path}`} alt="poster"
-                            style={{
-                                borderRadius: '14px'
-                            }}
-                        />
+                        {selectedMovies.poster_path ?
+                            <img src={`https://image.tmdb.org/t/p/w500${selectedMovies.poster_path}`} alt="poster"
+                                style={{
+                                    borderRadius: '14px'
+                                }}
+                            />
+                            :
+                            <Skeleton sx={{ width: '100%', height: '100%' }} />
+                        }
+
                     </Box>
                 </Grid>
 
-                <Grid item xs={12} lg={10}>
+                <Grid item xs={12} lg={8}>
                     <MyButton onClick={handelerBack}
                         sx={{ my: 2 }}
 

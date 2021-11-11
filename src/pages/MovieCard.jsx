@@ -1,10 +1,12 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
+import PropTypes from 'prop-types'
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Skeleton from '@mui/material/Skeleton';
 import { Box } from '@mui/material';
 import { useHistory } from 'react-router';
 import { useSelector } from 'react-redux';
@@ -22,9 +24,6 @@ export default function MovieCard({ movie }) {
 
     const addToFavorite = () => {
         api.fetchAddToFavoriteApi(user.id, localStorage.getItem('session_id'), movie.id)
-        // console.log(user.id)
-        // console.log(localStorage.getItem('session_id'))
-        // console.log(movie.id)
     }
 
     return (
@@ -46,19 +45,46 @@ export default function MovieCard({ movie }) {
                     padding: 0
                 }}>
 
-                <Box
-                    sx={{
-                        position: 'relative',
-                        paddingBottom: '400px',
-                        background: '#bebebe',
-                        '&:hover': {
-                            cursor: 'pointer'
-                        }
-                    }}
-                    onClick={redirectHandler}
-                >
-                    <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`${movie.original_title}`}
-                        style={{
+                {movie.poster_path ?
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            paddingBottom: '400px',
+                            background: '#bebebe',
+                            '&:hover': {
+                                cursor: 'pointer'
+                            }
+                        }}
+                        onClick={redirectHandler}
+                    >
+                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={`${movie.original_title}`}
+                            style={{
+                                position: 'absolute',
+                                left: 0,
+                                right: 0,
+                                bottom: 0,
+                                top: 0,
+                                width: '100%',
+                                height: '100%',
+                            }}
+                        />
+                    </Box>
+                    :
+
+                    <Box
+                        sx={{
+                            position: 'relative',
+                            height: '400px',
+                            background: '#bebebe',
+                            padding: '26px 20px 0 20px',
+                            '&:hover': {
+                                cursor: 'pointer'
+                            }
+                        }}
+                        onClick={redirectHandler}
+                    >
+                        {/* <p>{movie.original_title}</p> */}
+                        <Skeleton sx={{
                             position: 'absolute',
                             left: 0,
                             right: 0,
@@ -66,10 +92,11 @@ export default function MovieCard({ movie }) {
                             top: 0,
                             width: '100%',
                             height: '100%',
-                        }}
 
-                    />
-                </Box>
+                        }} />
+                    </Box>
+                }
+
 
                 <Box sx={{
                     padding: '26px 20px 0 20px',
@@ -121,4 +148,12 @@ export default function MovieCard({ movie }) {
             </CardContent>
         </Card >
     );
+}
+
+MovieCard.defaultProps = {
+    movie: {}
+}
+
+MovieCard.propTypes = {
+    movie: PropTypes.object
 }

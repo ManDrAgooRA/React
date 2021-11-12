@@ -37,3 +37,13 @@ export async function fetchSearchApi(seacrchQuery, page) {
     console.log(data)
     return data
 }
+
+export async function fetchGenreListApi() {
+    const { data } = await movieAxios.get('/genre/movie/list?')
+    return data
+}
+
+export async function fetchFilterByGenerApi(genersString, page) {
+    const { data } = await movieAxios.get(`/discover/movie?with_genres=${genersString}&page=${page}`)
+    return data
+}

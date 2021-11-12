@@ -1,20 +1,38 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 function CircularProgressWithLabel(props) {
+    const [ratingColor, setRatingColor] = useState('#21d07a')
+
+    useEffect(() => {
+
+        if (props.value < 70 && props.value > 40) {
+            setRatingColor('#d2d531')
+        }
+
+        if (props.value < 40 && props.value > 1) {
+            setRatingColor('#fa0203')
+        }
+
+
+    }, [setRatingColor])
 
     return (
         <Box
             sx={{
-                display: 'inline-flex',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
                 background: '#212121',
-                borderRadius: '50%'
+                borderRadius: '50%',
+                width: '50px',
+                height: '50px',
             }}
         >
-            <CircularProgress variant="determinate" {...props} />
+            <CircularProgress variant="determinate" {...props} sx={{ color: `${ratingColor}` }} />
             <Box
                 sx={{
                     top: 0,
@@ -41,4 +59,8 @@ export default function CircularStatic({ progress }) {
 
 CircularStatic.propTypes = {
     progress: PropTypes.number
+}
+
+CircularStatic.defaultProps = {
+    progress: 0
 }

@@ -83,7 +83,6 @@ export default function MovieCard({ movie }) {
                         }}
                         onClick={redirectHandler}
                     >
-                        {/* <p>{movie.original_title}</p> */}
                         <Skeleton sx={{
                             position: 'absolute',
                             left: 0,

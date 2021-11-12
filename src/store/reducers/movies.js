@@ -2,6 +2,7 @@ import { moviesActions } from '../actions'
 
 export const initialState = {
     movies: [],
+    genres: [],
     currentPage: 1,
     totalPages: 1,
     selectedMovies: null,
@@ -40,6 +41,19 @@ export function movies(state = initialState, action) {
             }
 
         case moviesActions.FETCH_FOUND_MOVIE_SUCCESS:
+            return {
+                ...state,
+                movies: [...action.payload.results],
+                totalPages: action.payload.total_pages,
+            }
+
+        case moviesActions.FETCH_GENRES_SUCCESS:
+            return {
+                ...state,
+                genres: [...action.payload.genres]
+            }
+
+        case moviesActions.FETCH_FILTER_BY_GENER_SUCCESS:
             return {
                 ...state,
                 movies: [...action.payload.results],

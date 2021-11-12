@@ -16,11 +16,7 @@ export default function Search({ setPage, page, setSearchValue }) {
         }
     }
 
-    console.log(typeof setPage)
-    console.log(typeof page)
-    console.log(typeof setSearchValue)
     return (
-
         <MyInput
             placeholder='Enter flim name'
             onChange={(e) => {

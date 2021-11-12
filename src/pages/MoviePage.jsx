@@ -62,7 +62,7 @@ export default function MoviePage() {
 
                     <Box>
                         <Typography variant='h4' component='h4'>{selectedMovies.original_title}</Typography>
-                        <Box sx={{ position: 'relative', width: '40px', height: '40px' }}>
+                        <Box sx={{ position: 'relative', width: '50px', height: '50px' }}>
                             <CircularStatic progress={Math.round(selectedMovies.vote_average * 10)} />
                         </Box>
                         <p>{selectedMovies.id}</p>

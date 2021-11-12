@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Grid } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { v4 as uuidv4 } from 'uuid';
 import { setCurrentPage } from '../store/actions'
@@ -12,8 +14,10 @@ import MovieCard from './MovieCard';
 import Loader from './../components/UI/Loader/Loader';
 import MyPagination from '../components/UI/MyPagination';
 import Search from '../components/Search';
-import { fetchMovies, fetchFoundMovies } from './../store/thunk';
+import { fetchMovies, fetchFoundMovies, fetchGenres } from './../store/thunk';
 // import * as api from '../apis'
+// import MyButton from './../components/UI/Button/MyButton';
+import FilterByGener from '../components/FilterByGener';
 
 export default function Movies() {
     const dispatch = useDispatch();
@@ -21,8 +25,9 @@ export default function Movies() {
     const { movies, isLoading, totalPages, currentPage } = useSelector((state) => state.movies)
     const [page, setPage] = useState(currentPage)
 
-    useEffect(() => {
 
+    useEffect(() => {
+        dispatch(fetchGenres())
         let pageLocal = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
 
         if (pageLocal) {
@@ -33,11 +38,13 @@ export default function Movies() {
             setCurrentPage(currentPage)
         }
 
+
         if (searchValue) {
             dispatch(fetchFoundMovies(searchValue, pageLocal))
         } else {
             dispatch(fetchMovies(pageLocal))
         }
+
     }, [dispatch, page, currentPage, searchValue])
 
 
@@ -51,6 +58,7 @@ export default function Movies() {
         return <Loader />
     }
 
+
     return (
         <>
             <Grid container spacing={2} sx={{ my: 4 }}>
@@ -59,14 +67,19 @@ export default function Movies() {
                     <Search setPage={setPage} page={page} setSearchValue={setSearchValue} />
                 </Grid>
 
-                <Grid item xs={12} lg={2} sx={{ padding: 0 }}>
+                <Grid item xs={12} lg={2}
+                    sx={{
+                        padding: 0,
+                        fontSize: '14px',
+                    }}
+                >
                     <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography>Accordion 1</Typography>
+                            <Typography>Sort by</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography>
@@ -75,21 +88,31 @@ export default function Movies() {
                             </Typography>
                         </AccordionDetails>
                     </Accordion>
-                    <Accordion>
+                    <FilterByGener
+                    />
+                    {/* <Accordion>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon />}
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography>Accordion 2</Typography>
+                            <Typography>Filters</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-                            </Typography>
+                            <Typography>By gener</Typography>
+                            <hr />
+                            <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
+                            <MyInput type='checkbox'></MyInput>
+                            {genres.map((gener) => {
+                                return (
+                                    <FormControlLabel key={uuidv4()} control={<Checkbox onChange={() => handleChange(gener.id)} />} label={gener.name} />
+
+                                )
+
+                            })}
                         </AccordionDetails>
-                    </Accordion>
+                        <MyButton onClick={find}>find</MyButton>
+                    </Accordion> */}
                 </Grid>
                 <Grid container spacing={2} item lg={10} >
                     {movies.map((movie) => {

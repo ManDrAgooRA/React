@@ -15,37 +15,79 @@ import Loader from './../components/UI/Loader/Loader';
 import MyPagination from '../components/UI/MyPagination';
 import Search from '../components/Search';
 import { fetchMovies, fetchFoundMovies, fetchGenres } from './../store/thunk';
-// import * as api from '../apis'
-// import MyButton from './../components/UI/Button/MyButton';
 import FilterByGener from '../components/FilterByGener';
+import { fetchFilterByGener } from '../store/thunk';
 
 export default function Movies() {
     const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('')
     const { movies, isLoading, totalPages, currentPage } = useSelector((state) => state.movies)
-    const [page, setPage] = useState(currentPage)
-
+    const [page, setPage] = useState()
+    const [checked, setChecked] = useState([])
 
     useEffect(() => {
         dispatch(fetchGenres())
-        let pageLocal = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
-
-        if (pageLocal) {
-            setPage(pageLocal)
-            setCurrentPage(pageLocal)
+        let a = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
+        if (a) {
+            dispatch(fetchMovies(a))
+            setPage(a)
         } else {
-            setPage(currentPage)
-            setCurrentPage(currentPage)
+            setPage(1)
         }
 
+    }, [dispatch])
 
+
+    // useEffect(() => {
+    //     dispatch(fetchMovies(page))
+    // }, [page])
+
+    useEffect(() => {
+        if (checked.length !== 0) {
+            dispatch(fetchFilterByGener(checked.join(','), page))
+            // console.log('true' + checked.length)
+        }
+
+    }, [checked, page])
+
+    useEffect(() => {
         if (searchValue) {
-            dispatch(fetchFoundMovies(searchValue, pageLocal))
+            dispatch(fetchFoundMovies(searchValue, page))
         } else {
-            dispatch(fetchMovies(pageLocal))
+            dispatch(fetchMovies(page))
         }
+    })
+    // console.log(checked)
+    // console.log(currentPage)
+    // useEffect(() => {
+    // dispatch(fetchMovies(page))
+    // dispatch(fetchGenres())
 
-    }, [dispatch, page, currentPage, searchValue])
+    // let pageLocal = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
+
+    // if (pageLocal) {
+    //     setPage(pageLocal)
+    //     setCurrentPage(pageLocal)
+    // } else {
+    //     setPage(currentPage)
+    // setPage(pageLocal)
+    // }
+
+
+    // if (searchValue) {
+    //     dispatch(fetchFoundMovies(searchValue, pageLocal))
+    // } else {
+    //     dispatch(fetchMovies(pageLocal))
+    // }
+
+    // if (checked.length) {
+    //     dispatch(fetchFilterByGener(checked.join(','), pageLocal))
+    // } else {
+
+    // }
+    //     dispatch(fetchFilterByGener(checked.join(','), page))
+
+    // }, [dispatch, page, currentPage, searchValue])
 
 
     const changePage = (event, value) => {
@@ -58,6 +100,9 @@ export default function Movies() {
         return <Loader />
     }
 
+    // console.log(checked.join(','))
+
+    // console.log(checked.length)
 
     return (
         <>
@@ -89,30 +134,11 @@ export default function Movies() {
                         </AccordionDetails>
                     </Accordion>
                     <FilterByGener
+                        page={page}
+                        setPage={setPage}
+                        checked={checked}
+                        setChecked={setChecked}
                     />
-                    {/* <Accordion>
-                        <AccordionSummary
-                            expandIcon={<ExpandMoreIcon />}
-                            aria-controls="panel1a-content"
-                            id="panel1a-header"
-                        >
-                            <Typography>Filters</Typography>
-                        </AccordionSummary>
-                        <AccordionDetails>
-                            <Typography>By gener</Typography>
-                            <hr />
-                            <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-                            <MyInput type='checkbox'></MyInput>
-                            {genres.map((gener) => {
-                                return (
-                                    <FormControlLabel key={uuidv4()} control={<Checkbox onChange={() => handleChange(gener.id)} />} label={gener.name} />
-
-                                )
-
-                            })}
-                        </AccordionDetails>
-                        <MyButton onClick={find}>find</MyButton>
-                    </Accordion> */}
                 </Grid>
                 <Grid container spacing={2} item lg={10} >
                     {movies.map((movie) => {

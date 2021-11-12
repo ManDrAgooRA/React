@@ -3,7 +3,7 @@ export const moviesActions = {
     FETCH_SELECTED_MOVIE_SUCCESS: '[MOVIES] Fetch selected  movie',
     FETCH_FOUND_MOVIE_SUCCESS: '[MOVIE] Fectch found moives',
     FETCH_GENRES_SUCCESS: '[MOVIE] Fetch genres success',
-    FETCH_FILTER_BY_GENER_SUCCESS: '[MOVIE] Fetch filter by success',
+    FETCH_FILTER_BY_GENER_SUCCESS: '[MOVIE] Fetch filter by gener success',
     SET_CURRENT_PAGE: '[MOVIE] Set current step',
     CLEAR_SELECTED_MOVIE: '[MOVIE] Clear seleced movie',
 }

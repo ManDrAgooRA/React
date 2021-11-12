@@ -11,12 +11,13 @@ import { v4 as uuidv4 } from 'uuid';
 import { fetchFilterByGener } from '../store/thunk'
 
 
-export default function FilterByGener() {
+export default function FilterByGener({ page, setPage, checked, setChecked }) {
     const { genres } = useSelector((state) => state.movies)
     const dispatch = useDispatch();
-    const [checked, setChecked] = useState([])
+    // const [checked, setChecked] = useState([])
 
     const handleToggle = (value) => {
+
 
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
@@ -26,10 +27,8 @@ export default function FilterByGener() {
         } else {
             newChecked.splice(currentIndex, 1)
         }
-        console.log(newChecked.join(','))
 
         setChecked(newChecked)
-        dispatch(fetchFilterByGener(newChecked.join(','), 1))
     }
 
     return (

@@ -34,7 +34,6 @@ export async function fetchAddToFavoriteApi(accountId, sessionId, movieId) {
 
 export async function fetchSearchApi(seacrchQuery, page) {
     const { data } = await movieAxios.get(`/search/movie?query=${seacrchQuery}&page=${page}`)
-    console.log(data)
     return data
 }
 

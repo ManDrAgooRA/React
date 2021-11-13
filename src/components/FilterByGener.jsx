@@ -8,17 +8,16 @@ import Checkbox from '@mui/material/Checkbox';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { fetchFilterByGener } from '../store/thunk'
+import PropTypes from 'prop-types';
+// import { fetchFilterByGener } from '../store/thunk'
+
 
 
 export default function FilterByGener({ page, setPage, checked, setChecked }) {
     const { genres } = useSelector((state) => state.movies)
     const dispatch = useDispatch();
-    // const [checked, setChecked] = useState([])
 
     const handleToggle = (value) => {
-
-
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
@@ -27,7 +26,6 @@ export default function FilterByGener({ page, setPage, checked, setChecked }) {
         } else {
             newChecked.splice(currentIndex, 1)
         }
-
         setChecked(newChecked)
     }
 
@@ -64,3 +62,17 @@ export default function FilterByGener({ page, setPage, checked, setChecked }) {
         </>
     )
 }
+
+// FilterByGener.propTypes = {
+//     setPage: PropTypes.func,
+//     page: PropTypes.number,
+//     searchValue: PropTypes.number,
+//     setSearchValue: PropTypes.func,
+// }
+
+// FilterByGener.defaultProps = {
+//     page: 1,
+//     searchValue: 1,
+//     setPage: () => { },
+//     setSearchValue: () => { },
+// }

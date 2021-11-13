@@ -5,8 +5,6 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { v4 as uuidv4 } from 'uuid';
 import { setCurrentPage } from '../store/actions'
@@ -28,66 +26,28 @@ export default function Movies() {
     useEffect(() => {
         dispatch(fetchGenres())
         let a = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
+
+        // if (a || !setChecked || !checked) {
         if (a) {
             dispatch(fetchMovies(a))
             setPage(a)
+            console.log('movie')
         } else {
             setPage(1)
+            console.log('work')
         }
 
     }, [dispatch])
 
 
-    // useEffect(() => {
-    //     dispatch(fetchMovies(page))
-    // }, [page])
-
     useEffect(() => {
         if (checked.length !== 0) {
             dispatch(fetchFilterByGener(checked.join(','), page))
-            // console.log('true' + checked.length)
+            setSearchValue('')
+            localStorage.removeItem('searchValue')
+            console.log('checked')
         }
-
     }, [checked, page])
-
-    useEffect(() => {
-        if (searchValue) {
-            dispatch(fetchFoundMovies(searchValue, page))
-        } else {
-            dispatch(fetchMovies(page))
-        }
-    })
-    // console.log(checked)
-    // console.log(currentPage)
-    // useEffect(() => {
-    // dispatch(fetchMovies(page))
-    // dispatch(fetchGenres())
-
-    // let pageLocal = JSON.parse(localStorage.getItem('currentPageLocalStorage'))
-
-    // if (pageLocal) {
-    //     setPage(pageLocal)
-    //     setCurrentPage(pageLocal)
-    // } else {
-    //     setPage(currentPage)
-    // setPage(pageLocal)
-    // }
-
-
-    // if (searchValue) {
-    //     dispatch(fetchFoundMovies(searchValue, pageLocal))
-    // } else {
-    //     dispatch(fetchMovies(pageLocal))
-    // }
-
-    // if (checked.length) {
-    //     dispatch(fetchFilterByGener(checked.join(','), pageLocal))
-    // } else {
-
-    // }
-    //     dispatch(fetchFilterByGener(checked.join(','), page))
-
-    // }, [dispatch, page, currentPage, searchValue])
 
 
     const changePage = (event, value) => {
@@ -100,19 +60,15 @@ export default function Movies() {
         return <Loader />
     }
 
-    // console.log(checked.join(','))
-
-    // console.log(checked.length)
-
     return (
         <>
             <Grid container spacing={2} sx={{ my: 4 }}>
 
                 <Grid item xs={12} lg={12}>
-                    <Search setPage={setPage} page={page} setSearchValue={setSearchValue} />
+                    <Search setPage={setPage} page={page} searchValue={searchValue} setSearchValue={setSearchValue} setChecked={setChecked} />
                 </Grid>
 
-                <Grid item xs={12} lg={2}
+                <Grid item xs={12} lg={3}
                     sx={{
                         padding: 0,
                         fontSize: '14px',
@@ -140,7 +96,7 @@ export default function Movies() {
                         setChecked={setChecked}
                     />
                 </Grid>
-                <Grid container spacing={2} item lg={10} >
+                <Grid container spacing={2} item lg={9} >
                     {movies.map((movie) => {
                         return (
                             <Grid key={uuidv4()} item xs={12} lg={3} >

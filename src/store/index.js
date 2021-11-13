@@ -19,7 +19,7 @@ const userMiddleWare = store => next => async (action) => {
     next(action);
 }
 
-const middleWare = [thunk, userMiddleWare];
+const middleWare = [thunk, logger, userMiddleWare];
 
 export const store = createStore(
     rootReducer,

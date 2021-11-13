@@ -45,6 +45,7 @@ export function movies(state = initialState, action) {
                 ...state,
                 movies: [...action.payload.results],
                 totalPages: action.payload.total_pages,
+                isLoading: false
             }
 
         case moviesActions.FETCH_GENRES_SUCCESS:
@@ -58,6 +59,7 @@ export function movies(state = initialState, action) {
                 ...state,
                 movies: [...action.payload.results],
                 totalPages: action.payload.total_pages,
+                isLoading: false
             }
 
         default:

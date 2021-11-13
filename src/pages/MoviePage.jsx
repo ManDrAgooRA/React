@@ -26,7 +26,8 @@ export default function MoviePage() {
     }
 
     const handelerBack = () => {
-        history.goBack()
+        history.push('/movies')
+        // history.goBack()
         dispatch(clearSeletedMovie())
     }
 
@@ -44,7 +45,8 @@ export default function MoviePage() {
                         {selectedMovies.poster_path ?
                             <img src={`https://image.tmdb.org/t/p/w500${selectedMovies.poster_path}`} alt="poster"
                                 style={{
-                                    borderRadius: '14px'
+                                    borderRadius: '14px',
+                                    background: '#bebebe'
                                 }}
                             />
                             :

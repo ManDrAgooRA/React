@@ -66,10 +66,10 @@ export const fetchGenres = () => {
     }
 }
 
-export const fetchFilterByGener = (sortList, page) => {
+export const fetchFilterByGener = (sortList, sortValue, page) => {
     return async (dispatch) => {
         try {
-            const filteredMovies = await api.fetchFilterByGenerApi(sortList, page)
+            const filteredMovies = await api.fetchFilterByGenerApi(sortList, sortValue, page)
             dispatch(fetchFilterBuyGenerSuccess(filteredMovies))
         } catch (e) {
             console.error(e)

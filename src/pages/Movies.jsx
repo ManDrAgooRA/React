@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { Grid, Box } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -11,6 +15,7 @@ import { setCurrentPage } from '../store/actions'
 import MovieCard from './MovieCard';
 import Loader from './../components/UI/Loader/Loader';
 import MyPagination from '../components/UI/MyPagination';
+import MyButton from '../components/UI/Button/MyButton'
 import Search from '../components/Search';
 import { fetchMovies, fetchFoundMovies, fetchGenres } from './../store/thunk';
 import FilterByGener from '../components/FilterByGener';
@@ -22,6 +27,8 @@ export default function Movies() {
     const { movies, isLoading, totalPages, currentPage } = useSelector((state) => state.movies)
     const [page, setPage] = useState()
     const [checked, setChecked] = useState([])
+    const [searchDisabled, setSearchDisabled] = useState(true);
+    const [sortValue, setSortValue] = useState('');
 
     useEffect(() => {
         dispatch(fetchGenres())
@@ -37,18 +44,39 @@ export default function Movies() {
             console.log('work')
         }
 
+
+
     }, [dispatch])
 
+    useEffect(() => {
+        setSearchDisabled(true)
+
+        if (checked.length || sortValue) {
+            setSearchDisabled(false)
+        }
+
+    }, [checked, sortValue, page])
 
     useEffect(() => {
-        if (checked.length !== 0) {
-            dispatch(fetchFilterByGener(checked.join(','), page))
+        if (sortValue || checked) {
+            dispatch(fetchFilterByGener(checked.join(','), sortValue, page))
             setSearchValue('')
             localStorage.removeItem('searchValue')
-            console.log('checked')
+            console.log('step')
         }
-    }, [checked, page])
+    }, [page])
 
+
+    const handleChange = (event) => {
+        setSortValue(event.target.value);
+        console.log(sortValue)
+    };
+
+    const filter = () => {
+        dispatch(fetchFilterByGener(checked.join(','), sortValue, page))
+        setSearchValue('')
+        localStorage.removeItem('searchValue')
+    }
 
     const changePage = (event, value) => {
         setPage(value)
@@ -80,13 +108,27 @@ export default function Movies() {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography>Sort by</Typography>
+                            <Typography>Sort Results By</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-                                malesuada lacus ex, sit amet blandit leo lobortis eget.
-                            </Typography>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-autowidth-label">choose sort param</InputLabel>
+                                <Select
+                                    labelId="demo-simple-select-autowidth-label"
+                                    id="demo-simple-select-autowidth"
+                                    value={sortValue}
+                                    onChange={handleChange}
+                                    label="choose sort param"
+                                >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={'popularity.desc'}>Popularity Descending</MenuItem>
+                                    <MenuItem value={'popularity.asc'}>Popularity Ascending</MenuItem>
+                                    <MenuItem value={'vote_average.asc'}>Rating Descending</MenuItem>
+                                    <MenuItem value={'vote_average.desc'}>Rating Ascending</MenuItem>
+                                </Select>
+                            </FormControl>
                         </AccordionDetails>
                     </Accordion>
                     <FilterByGener
@@ -95,6 +137,7 @@ export default function Movies() {
                         checked={checked}
                         setChecked={setChecked}
                     />
+                    <MyButton fullWidth sx={{ my: 2 }} disabled={searchDisabled} onClick={filter}>Filter</MyButton>
                 </Grid>
                 <Grid container spacing={2} item lg={9} >
                     {movies.map((movie) => {

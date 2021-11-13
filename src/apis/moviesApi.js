@@ -42,7 +42,18 @@ export async function fetchGenreListApi() {
     return data
 }
 
-export async function fetchFilterByGenerApi(genersString, page) {
-    const { data } = await movieAxios.get(`/discover/movie?with_genres=${genersString}&page=${page}`)
+// export async function fetchFilterByGenerApi(genersString, sortByValue, page) {
+//     const { data } = await movieAxios.get(`/discover/movie?with_genres=${genersString}&page=${page}&sort_by=${sortByValue}`)
+//     return data
+// }
+export async function fetchFilterByGenerApi(genersString, sortByValue, page) {
+    const { data } = await movieAxios.get(`/discover/movie`, {
+        params: {
+            with_genres: genersString,
+            sort_by: sortByValue,
+            page
+        }
+    })
+
     return data
 }

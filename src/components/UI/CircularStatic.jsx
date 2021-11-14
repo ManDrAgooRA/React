@@ -18,7 +18,7 @@ function CircularProgressWithLabel(props) {
         }
 
 
-    }, [setRatingColor])
+    }, [setRatingColor, props.value])
 
     return (
         <Box

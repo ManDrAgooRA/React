@@ -3,6 +3,11 @@ import { moviesActions } from '../actions'
 export const initialState = {
     movies: [],
     genres: [],
+    selectedGener: [],
+    languageList: [],
+    selectedLanguage: '',
+    sortString: '',
+    searchString: '',
     currentPage: 1,
     totalPages: 1,
     selectedMovies: null,
@@ -12,13 +17,6 @@ export const initialState = {
 
 export function movies(state = initialState, action) {
     switch (action.type) {
-        case moviesActions.FETCH_MOVIES_SUCCESS:
-            return {
-                ...state,
-                movies: [...action.paylaod.results],
-                totalPages: action.paylaod.total_pages,
-                isLoading: false
-            }
 
         case moviesActions.FETCH_SELECTED_MOVIE_SUCCESS:
             return {
@@ -60,6 +58,30 @@ export function movies(state = initialState, action) {
                 movies: [...action.payload.results],
                 totalPages: action.payload.total_pages,
                 isLoading: false
+            }
+
+        case moviesActions.SET_SELECTED_FILTER:
+            return {
+                ...state,
+                selectedGener: [...action.payload]
+            }
+
+        case moviesActions.SET_SORT_STRING:
+            return {
+                ...state,
+                sortString: action.payload
+            }
+
+        case moviesActions.SET_SEARCH_STRING:
+            return {
+                ...state,
+                searchString: action.payload
+            }
+
+        case moviesActions.FETCH_LANGUAGE_SUCCESS:
+            return {
+                ...state,
+                languageList: [...action.payload]
             }
 
         default:

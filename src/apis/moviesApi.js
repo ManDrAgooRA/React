@@ -9,10 +9,10 @@ export const movieAxios = axios.create({
     }
 })
 
-export async function fetchMoviesApi(page) {
-    const { data } = await movieAxios.get(`/discover/movie?${LANGUAGE}&page=${page}`);
-    return data
-}
+// export async function fetchMoviesApi(page) {
+//     const { data } = await movieAxios.get(`/discover/movie?${LANGUAGE}&page=${page}`);
+//     return data
+// }
 
 export async function fetchSelectedMovieApi(id) {
     const { data } = await movieAxios.get(`/movie/${id}?${LANGUAGE}`)
@@ -42,15 +42,18 @@ export async function fetchGenreListApi() {
     return data
 }
 
-// export async function fetchFilterByGenerApi(genersString, sortByValue, page) {
-//     const { data } = await movieAxios.get(`/discover/movie?with_genres=${genersString}&page=${page}&sort_by=${sortByValue}`)
-//     return data
-// }
-export async function fetchFilterByGenerApi(genersString, sortByValue, page) {
+export async function fetchLangaugesListApi() {
+    const { data } = await movieAxios.get('/configuration/languages?')
+    console.log(data)
+    return data
+}
+
+export async function fetchFilterByGenerApi(genersString, sortByValue, language, page) {
     const { data } = await movieAxios.get(`/discover/movie`, {
         params: {
             with_genres: genersString,
             sort_by: sortByValue,
+            // with_original_language: language,
             page
         }
     })

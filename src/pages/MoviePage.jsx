@@ -27,7 +27,6 @@ export default function MoviePage() {
 
     const handelerBack = () => {
         history.push('/movies')
-        // history.goBack()
         dispatch(clearSeletedMovie())
     }
 

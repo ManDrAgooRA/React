@@ -1,25 +1,13 @@
 import {
-    fetchMoviesSuccess,
     fetchSelectedMovieSuccess,
     fetchFavoriteMoviesSuccess,
     fetchFoundMoviesSeccess,
     fetchGenreSuccess,
-    fetchFilterBuyGenerSuccess
+    fetchFilterBuyGenerSuccess,
+    fetchLanguageListSuccess,
 } from '../actions';
 
 import * as api from '../../apis'
-
-
-export const fetchMovies = (page) => {
-    return async (dispatch) => {
-        try {
-            const movies = await api.fetchMoviesApi(page)
-            dispatch(fetchMoviesSuccess(movies))
-        } catch (e) {
-            console.error(e)
-        }
-    }
-}
 
 export const fetchSelectedMovie = (id) => {
     return async (dispatch) => {
@@ -71,6 +59,18 @@ export const fetchFilterByGener = (sortList, sortValue, page) => {
         try {
             const filteredMovies = await api.fetchFilterByGenerApi(sortList, sortValue, page)
             dispatch(fetchFilterBuyGenerSuccess(filteredMovies))
+        } catch (e) {
+            console.error(e)
+        }
+    }
+}
+
+export const fetchLangaugeList = () => {
+    return async (dispatch) => {
+        try {
+            const langaugeList = await api.fetchLangaugesListApi()
+            console.log(langaugeList)
+            dispatch(fetchLanguageListSuccess(langaugeList))
         } catch (e) {
             console.error(e)
         }

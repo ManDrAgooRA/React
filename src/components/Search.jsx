@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form";
@@ -7,20 +7,27 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import MyInput from './UI/Input/MyInput'
 import MyButton from './UI/Button/MyButton'
-import { fetchFoundMovies, fetchMovies } from '../store/thunk'
+import { fetchFoundMovies } from '../store/thunk'
+import { setSearchtString } from './../store/actions/movies';
+import { useSelector } from 'react-redux';
 
-export default function Search({ setPage, page, searchValue, setSearchValue, setChecked }) {
+export default function Search({
+    setPage,
+    page,
+    // searchValue, 
+    // setSearchValue 
+}) {
     const dispatch = useDispatch()
-
+    const { searchString } = useSelector((state) => state.movies)
+    const [searchValue, setSearchValue] = useState()
 
     useEffect(() => {
-        if (localStorage.getItem('searchValue')) {
-            dispatch(fetchFoundMovies(localStorage.getItem('searchValue'), page))
-        } else {
-            dispatch(fetchMovies(page))
+        if (searchString) {
+            dispatch(fetchFoundMovies(searchString, page))
         }
 
-    }, [page])
+    }, [page, dispatch, searchString])
+
 
     const schema = yup.object().shape({
         search: yup
@@ -32,17 +39,17 @@ export default function Search({ setPage, page, searchValue, setSearchValue, set
         mode: 'onBlur',
         resolver: yupResolver(schema),
         defaultValues: {
-            search: localStorage.getItem('searchValue'),
+            search: searchString,
         }
     })
 
     const onSubmit = ({ search }) => {
         if (search) {
             dispatch(fetchFoundMovies(searchValue, page))
-            localStorage.setItem('searchValue', searchValue)
+            dispatch(setSearchtString(search))
         } else {
             setPage(1)
-            dispatch(fetchMovies(1))
+            // dispatch(setSearchtString(''))
         }
     };
 
@@ -50,9 +57,9 @@ export default function Search({ setPage, page, searchValue, setSearchValue, set
         setSearchValue('')
         localStorage.removeItem('searchValue')
         localStorage.setItem('currentPageLocalStorage', 1)
+        dispatch(setSearchtString(null))
+
         setPage(1)
-        dispatch(fetchMovies(1))
-        setChecked([])
     }
 
     const checkValue = (value) => {
@@ -97,5 +104,4 @@ Search.defaultProps = {
     searchValue: '',
     setPage: () => { },
     setSearchValue: () => { },
-    setChecked: () => { },
 }
